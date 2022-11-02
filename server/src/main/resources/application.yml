@@ -1,0 +1,33 @@
+spring:
+  application:
+    name: movie-on
+  lifecycle:
+    timeout-per-shutdown-phase: 20s
+
+server:
+  error:
+    whitelabel:
+      enabled: false
+  shutdown: graceful
+  servlet:
+    encoding:
+      charset: UTF-8
+      force: true
+
+management:
+  server:
+    port: 9100
+  endpoints:
+    enabled-by-default: false
+    jmx:
+      exposure:
+        exclude: "*"
+    web:
+      exposure:
+        include: info, health
+      base-path: /monitoring
+  endpoint:
+    info:
+      enabled: true
+    health:
+      enabled: true
