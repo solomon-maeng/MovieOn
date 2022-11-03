@@ -1,4 +1,4 @@
-package com.rebwon
+package com.remember
 
 import io.kotest.core.config.AbstractProjectConfig
 import io.kotest.extensions.spring.SpringExtension

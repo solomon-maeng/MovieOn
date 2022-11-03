@@ -1,4 +1,4 @@
-package com.rebwon.query
+package com.remember.query
 
 import io.kotest.core.spec.style.DescribeSpec
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest

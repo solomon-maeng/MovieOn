@@ -1,4 +1,4 @@
-package com.rebwon.app
+package com.remember.app
 
 import io.kotest.core.spec.style.DescribeSpec
 import org.springframework.boot.test.context.SpringBootTest

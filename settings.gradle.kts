@@ -26,6 +26,7 @@ include("product-api")
 include("payment-api")
 include("query-api")
 include("batch-api")
+include("playground")
 
 pluginManagement {
     val kotlinVersion: String by settings
