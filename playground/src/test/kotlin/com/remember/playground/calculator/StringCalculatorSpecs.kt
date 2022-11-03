@@ -1,11 +1,13 @@
 package com.remember.playground.calculator
 
 import io.kotest.assertions.throwables.shouldThrow
+import io.kotest.core.annotation.Ignored
 import io.kotest.core.spec.style.DescribeSpec
 import io.kotest.matchers.should
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.string.startWith
 
+@Ignored
 class StringCalculatorSpecs : DescribeSpec({
 
     describe("문자열 덧셈 계산기 구현") {

@@ -1,12 +1,14 @@
 package com.remember.playground.calculator
 
 import io.kotest.assertions.throwables.shouldThrow
+import io.kotest.core.annotation.Ignored
 import io.kotest.core.spec.style.DescribeSpec
 import io.kotest.matchers.should
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.string.startWith
 import java.lang.RuntimeException
 
+@Ignored
 class NumberSpecs : DescribeSpec({
 
     describe("입력 값이 음수라면,") {

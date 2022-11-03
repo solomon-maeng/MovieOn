@@ -12,21 +12,9 @@ dependencies {
     implementation(project(":batch-api"))
     implementation(project(":payment-api"))
     implementation(project(":product-api"))
-
-    implementation(project(":user-api:user-interfaces"))
-    implementation(project(":user-api:user-application"))
-    implementation(project(":user-api:user-domain"))
-    implementation(project(":user-api:user-infrastructure"))
-
-    implementation(project(":order-api:order-interfaces"))
-    implementation(project(":order-api:order-application"))
-    implementation(project(":order-api:order-domain"))
-    implementation(project(":order-api:order-infrastructure"))
-
-    implementation(project(":notification-api:notification-interfaces"))
-    implementation(project(":notification-api:notification-application"))
-    implementation(project(":notification-api:notification-domain"))
-    implementation(project(":notification-api:notification-infrastructure"))
+    implementation(project(":order-api"))
+    implementation(project(":notification-api"))
+    implementation(project(":user-api"))
 
     implementation("org.springframework.boot:spring-boot-starter-actuator")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
