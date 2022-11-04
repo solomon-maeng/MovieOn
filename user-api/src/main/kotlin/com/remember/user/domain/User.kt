@@ -53,11 +53,11 @@ class User(
                 registerEvent(RegisterCompletedEvent(userId = userKey, email = email))
             }
 
-            else -> throw IllegalArgumentException("전달된 토큰이 일치하지 않습니다.")
+            else -> throw IllegalArgumentException("가입 확인 토큰이 일치하지 않습니다.")
         }
     }
 
-    companion object Factory {
+    companion object {
         fun create(username: String, email: String, password: String, token: String): User {
             val user = User(
                 userInformation = UserInformation(

@@ -32,4 +32,7 @@ dependencies {
 
     runtimeOnly("mysql:mysql-connector-java")
     testRuntimeOnly("com.h2database:h2")
+
+    testImplementation("com.ninja-squad:springmockk:3.1.1")
+    testImplementation("io.kotest.extensions:kotest-extensions-spring:1.1.2")
 }
