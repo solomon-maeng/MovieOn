@@ -7,22 +7,6 @@ MovieOn API는 다음 기술로 개발되었습니다.
 - Spring 5.3.23
 - MySQL 8.0.30
 
-## 실행 방법
-
-프로젝트 실행 전 다음을 가정한다.
-
-- Docker가 설치되어있다고 가정
-- M1 Pro Mac을 사용 중이라고 가정
-- JDK 17, Intellij 설치가 되었다고 가정
-
-로컬 실행
-
-1. 프로젝트 Clone
-2. 프로젝트 루트 디렉토리에서 ```$ ./gradlew clean build``` 로 빌드 및 테스트 실행
-3. 프로젝트 하위 docker/mysql/에서 ```$ docker-compose up -d``` 실행
-4. 프로젝트 루트로 돌아와서 ```$ java -jar -Dspring.profiles.active=local server/build/libs/server-0.0.1.jar```
-   실행
-
 ## 코드 아키텍처
 
 모듈형 모노리스 아키텍처를 사용하여, 다음 모듈들로 프로젝트가 구성되어 있음.
