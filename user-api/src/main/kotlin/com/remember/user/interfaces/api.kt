@@ -1,11 +1,14 @@
 package com.remember.user.interfaces
 
+import com.remember.shared.contracts.ReIssuanceTokenCommand
+import com.remember.user.application.TokenDto
+import com.remember.user.application.UserDto
+import com.remember.user.application.UserFacade
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.responses.ApiResponse
 import io.swagger.v3.oas.annotations.responses.ApiResponses
 import io.swagger.v3.oas.annotations.security.SecurityRequirements
 import io.swagger.v3.oas.annotations.tags.Tag
-import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import javax.validation.Valid
@@ -20,7 +23,7 @@ interface UserApiSpecification {
             ApiResponse(responseCode = "400", description = "회원가입 요청 파라미터 에러")]
     )
     @PostMapping("/api/v1/users/register")
-    fun register(@RequestBody @Valid request: RegisterUserRequest)
+    fun register(@RequestBody @Valid request: RegisterUserRequest): ResponseEntity<UserResponse>
 
     @Operation(summary = "회원가입 확인", description = "회원가입한 유저가 올바른지 확인 하기 위한 EndPoint 를 제공합니다.")
     @ApiResponses(
@@ -44,25 +47,33 @@ interface UserApiSpecification {
             ApiResponse(responseCode = "400", description = "토큰 재발급 요청 에러")]
     )
     @PostMapping("/api/v1/users/reIssuance")
-    fun reIssuance(@RequestHeader("Authorization") payload: String) : ResponseEntity<TokenResponse>
+    fun reIssuance(@RequestHeader("Authorization") payload: String): ResponseEntity<TokenResponse>
 }
 
 @RestController
-internal class UserApi : UserApiSpecification {
+internal class UserApi(val userFacade: UserFacade) : UserApiSpecification {
 
-    override fun register(request: RegisterUserRequest) {
-
+    override fun register(request: RegisterUserRequest): ResponseEntity<UserResponse> {
+        val result = userFacade.execute(request.toCommand()) as UserDto
+        return ResponseEntity.ok(
+            UserResponse(
+                userId = result.userKey, email = result.email, username = result.username,
+                verified = result.verified, createdAt = result.createdAt, updatedAt = result.updatedAt
+            )
+        )
     }
 
     override fun registerConfirm(request: RegisterConfirmRequest) {
-
+        userFacade.execute(request.toCommand())
     }
 
     override fun login(request: LoginUserRequest): ResponseEntity<TokenResponse> {
-        TODO("Not yet implemented")
+        val result = userFacade.execute(request.toCommand()) as TokenDto
+        return ResponseEntity.ok(TokenResponse(result.accessToken, result.refreshToken))
     }
 
     override fun reIssuance(payload: String): ResponseEntity<TokenResponse> {
-        TODO("Not yet implemented")
+        val result = userFacade.execute(ReIssuanceTokenCommand(payload)) as TokenDto
+        return ResponseEntity.ok(TokenResponse(result.accessToken, result.refreshToken))
     }
 }

@@ -1,11 +1,13 @@
 package com.remember.user.interfaces
 
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.remember.user.application.UserFacade
 import io.kotest.core.spec.style.DescribeSpec
 import io.kotest.data.forAll
 import io.kotest.data.headers
 import io.kotest.data.row
 import io.kotest.data.table
+import io.mockk.mockk
 import org.springframework.http.MediaType
 import org.springframework.test.web.servlet.MockHttpServletRequestDsl
 import org.springframework.test.web.servlet.MockMvc
@@ -13,9 +15,16 @@ import org.springframework.test.web.servlet.get
 import org.springframework.test.web.servlet.post
 import org.springframework.test.web.servlet.setup.MockMvcBuilders
 
+// API URI 상수 정의
+private const val REGISTER_URI = "/api/v1/users/register"
+private const val REGISTER_CONFIRM_URI = "/api/v1/users/register/confirm"
+private const val LOGIN_URI = "/api/v1/users/login"
+private const val REISSUANCE_API = "/api/v1/users/reIssuance"
+
 class UserApiSpecs : DescribeSpec({
 
     val objectMapper = ObjectMapper()
+    val userFacade = mockk<UserFacade>()
     lateinit var userApiSpecification: UserApiSpecification
     lateinit var mockMvc: MockMvc
 
@@ -26,7 +35,7 @@ class UserApiSpecs : DescribeSpec({
     }
 
     beforeTest {
-        userApiSpecification = UserApi()
+        userApiSpecification = UserApi(userFacade)
         mockMvc = MockMvcBuilders.standaloneSetup(userApiSpecification)
             .build()
     }
@@ -101,11 +110,4 @@ class UserApiSpecs : DescribeSpec({
                 }
         }
     }
-}) {
-    companion object {
-        private const val REGISTER_URI = "/api/v1/users/register"
-        private const val REGISTER_CONFIRM_URI = "/api/v1/users/register/confirm"
-        private const val LOGIN_URI = "/api/v1/users/login"
-        private const val REISSUANCE_API = "/api/v1/users/reIssuance"
-    }
-}
+})

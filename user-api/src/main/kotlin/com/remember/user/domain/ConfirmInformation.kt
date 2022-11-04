@@ -4,12 +4,13 @@ import javax.persistence.Column
 import javax.persistence.Embeddable
 
 @Embeddable
-data class EmailConfirmInformation(
+data class ConfirmInformation(
     @Column(nullable = false, unique = true)
     val email: String,
 
     @Column(nullable = false)
-    val emailCheckToken: String,
+    val token: String,
 
-    val emailVerified: Boolean
+    @Column(nullable = false)
+    val verified: Boolean = false
 )

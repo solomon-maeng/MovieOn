@@ -1,4 +1,4 @@
-# 모범 사례로 배우는 Kotlin Spring 프로젝트
+# 주관적 모범 사례 Kotlin + Spring 프로젝트 
 
 ## 목차
 
