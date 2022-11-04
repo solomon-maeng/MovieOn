@@ -21,5 +21,6 @@
 2. ```mkdir .git/hooks``` 실행
 3. ```./gradlew addKtlintCheckGitPreCommitHook``` 실행
 4. ```./gradlew clean build``` 로 빌드 및 테스트 실행
-5. docker/mysql/에서 ```docker-compose up -d``` 실행
-6. ```java -jar -Dspring.profiles.active=local server/build/libs/server-0.0.1.jar``` 실행
+5. ```cd docker/mysql``` 실행
+6. ```docker-compose up -d``` 실행
+7. ```java -jar -Dspring.profiles.active=local server/build/libs/server-0.0.1.jar``` 실행
