@@ -17,7 +17,7 @@ import javax.persistence.Transient
 abstract class AbstractAggregateRoot(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long = 0L,
+    private val id: Long = 0L,
     @CreationTimestamp
     @Audited
     val createdAt: LocalDateTime? = null,
@@ -65,7 +65,7 @@ abstract class AbstractAggregateRoot(
 abstract class BaseEntity(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long = 0L,
+    private val id: Long = 0L,
     @CreationTimestamp
     @Audited
     val createdAt: LocalDateTime? = null,

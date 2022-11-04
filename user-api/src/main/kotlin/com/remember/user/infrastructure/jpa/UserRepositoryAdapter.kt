@@ -10,14 +10,14 @@ class UserRepositoryAdapter(private val jpaUserRepository: JpaUserRepository) : 
     }
 
     override fun existsByEmail(email: String): Boolean {
-        return jpaUserRepository.existsByConfirmInformationEmail(email)
+        return jpaUserRepository.existsByUserInformationEmail(email)
     }
 
     override fun existsByUsername(username: String): Boolean {
-        return jpaUserRepository.existsByUsername(username)
+        return jpaUserRepository.existsByUserInformationUsername(username)
     }
 
     override fun findByEmail(email: String): User? {
-        return jpaUserRepository.findByConfirmInformationEmail(email)
+        return jpaUserRepository.findByUserInformationEmail(email)
     }
 }

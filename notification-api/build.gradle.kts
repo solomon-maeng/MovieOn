@@ -20,5 +20,5 @@ dependencies {
 
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 
-    implementation("org.springdoc:springdoc-openapi-ui:1.6.11")
+    implementation("org.springdoc:springdoc-openapi-ui:1.6.12")
 }

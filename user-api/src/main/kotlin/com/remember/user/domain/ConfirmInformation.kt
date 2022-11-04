@@ -5,9 +5,6 @@ import javax.persistence.Embeddable
 
 @Embeddable
 data class ConfirmInformation(
-    @Column(nullable = false, unique = true)
-    val email: String,
-
     @Column(nullable = false)
     val token: String,
 

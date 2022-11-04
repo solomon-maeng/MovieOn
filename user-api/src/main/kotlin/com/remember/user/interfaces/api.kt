@@ -57,7 +57,7 @@ internal class UserApi(val userFacade: UserFacade) : UserApiSpecification {
         val result = userFacade.execute(request.toCommand()) as UserDto
         return ResponseEntity.ok(
             UserResponse(
-                userId = result.userKey, email = result.email, username = result.username,
+                userId = result.userId, email = result.email, username = result.username,
                 verified = result.verified, createdAt = result.createdAt, updatedAt = result.updatedAt
             )
         )

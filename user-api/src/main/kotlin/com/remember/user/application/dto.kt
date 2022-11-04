@@ -4,7 +4,7 @@ import java.time.LocalDate
 import java.time.LocalDateTime
 
 data class UserDto(
-    val userKey: String,
+    val userId: String,
     val username: String,
     val email: String,
     val verified: Boolean,

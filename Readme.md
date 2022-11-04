@@ -1,4 +1,4 @@
-# 주관적 모범 사례 Kotlin + Spring 프로젝트 
+# Kotlin + Spring 온보딩 프로젝트 
 
 ## 목차
 

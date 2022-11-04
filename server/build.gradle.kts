@@ -23,7 +23,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-security")
 
-    implementation("org.springdoc:springdoc-openapi-ui:1.6.11")
+    implementation("org.springdoc:springdoc-openapi-ui:1.6.12")
 
     implementation("org.flywaydb:flyway-core")
     implementation("org.flywaydb:flyway-mysql")

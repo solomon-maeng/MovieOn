@@ -3,6 +3,7 @@ package com.remember.user.domain
 import com.remember.shared.Role
 import com.remember.shared.contracts.RegisterConfirmCommand
 import com.remember.shared.contracts.RegisterUserCommand
+import io.kotest.assertions.assertSoftly
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.DescribeSpec
 import io.kotest.matchers.collections.shouldContain
@@ -62,12 +63,14 @@ class UserCommandHandlerSpecs : DescribeSpec({
                 val result = sut.handle(command)
 
                 // Assert
-                result.userKey shouldNotBe null
-                result.email shouldBe "jiwonKim@gmail.com"
-                result.username shouldBe "jiwonKim"
-                result.verified shouldBe false
-                result.roles shouldContain Role.USER
-                result.pollAllEvents().size shouldBe 1
+                assertSoftly(result) {
+                    userId shouldNotBe null
+                    email shouldBe "jiwonKim@gmail.com"
+                    username shouldBe "jiwonKim"
+                    verified shouldBe false
+                    roles shouldContain Role.USER
+                    pollAllEvents().size shouldBe 1
+                }
             }
         }
 
@@ -115,8 +118,10 @@ class UserCommandHandlerSpecs : DescribeSpec({
                 val result = sut.handle(command)
 
                 // Assert
-                result.pollAllEvents().size shouldNotBe 0
-                result.verified shouldBe true
+                assertSoftly(result) {
+                    pollAllEvents().size shouldNotBe 0
+                    verified shouldBe true
+                }
             }
         }
     }
