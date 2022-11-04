@@ -5,7 +5,7 @@ class FakeUserRepository : UserRepository {
     private val data = mutableMapOf<String, User>()
 
     override fun save(user: User): User {
-        data[user.userKey] = user
+        data[user.userId] = user
         return user
     }
 

@@ -27,25 +27,52 @@
 - 다른 테스트의 실행을 충돌시키지 않도록, 기본 값 설정은 반드시 테스트 실행 전에 실행되도록 하고, 테스트 실행 후에는 TRUNCATE문을 사용하여 비워주거나, DELETE문을
   사용하여 명시적으로 데이터베이스에서 삭제되도록 할 것을 권장한다.
 
+## 각 테스트 별 권장하는 Kotest Isolation Mode
+
+기본적으로 Domain 계층에 대한 테스트는 기본 값인 SingleInstance Mode를 사용할 것을 권장한다.
+
+- SingleInstance Mode를 사용해도 좋은 이유는, 외부 인프라, Spring에 의존하지 않은 순수한 POKO 테스트이기 때문이다.
+
+다음과 같이, 통합 테스트를 작성해야 하는 경우는 InstancePerLeaf Mode를 사용할 것을 권장한다.
+
+- 다음과 같이 작성하면, describe 컨택스트 별로 한번 씩만 테스트 인스턴스를 생성한다. 따라서 총 2번 생성된다.
+
+```kotlin
+describe() {
+    context() {
+        it() {
+
+        }
+    }
+}
+
+describe() {
+    context() {
+        it() {
+
+        }
+    }
+}
+```
+
+마지막으로, InstancePerTest는 내부 컨택스트를 포함해서 모든 테스트에 대한 인스턴스를 재생성하기 때문에 테스트 속도 및 비용 측면에서 권장되지 않는다.
+
 ## interfaces 계층에 대한 단위 테스트 모범 사례
 
 user-api 모듈 하위 ```/src/test/com/remember/user/interfaces```에 존재하는 UserApiSpecs를 참고하여, HTTP API에 대한
 입력 값 검증 테스트를 작성할 것을 권장한다.
 
-아래의 코드처럼 table과 headers, row를 사용하면 입력 값을 미리 셋팅할 수 있고, row 갯수만큼 테스트가 실행된다. 
+아래의 코드처럼 withData() 안에 data class를 넣어주면, 다음과 같이 3개의 케이스에 대해 중복을 제거할 수 있고 깔끔하게 테스트가 가능하다.
 
-주의할 점은 1번의 테스트 실행 안에서 3번을 함께 돌리기 때문에 테스트 실행 케이스가 1개로만 표기된다.
 ```kotlin
 context("회원가입 요청 시, 입력 값이 잘못된 경우 400 BadRequest 를 반환한다.") {
-    table(
-        headers("username", "email", "password"),
-        row("", "", ""),
-        row("kitty", "aaa123", "1234567!@"),
-        row("kitty", "kitty123@gmail.com", "12345")
-    ).forAll { username, email, password ->
-
+    withData(
+        RegisterUserRequest("", "", ""),
+        RegisterUserRequest("kitty", "aaa123", "1234567!@"),
+        RegisterUserRequest("kitty", "kitty123@gmail.com", "12345"),
+    ) { request ->
         mockMvc.post(REGISTER_URI) {
-            jsonBody(RegisterUserRequest(username = username, email = email, password = password))
+            jsonBody(request)
         }.andDo {
             print()
         }.andExpect {

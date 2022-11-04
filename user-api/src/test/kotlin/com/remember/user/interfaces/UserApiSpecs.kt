@@ -3,10 +3,7 @@ package com.remember.user.interfaces
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.remember.user.application.UserFacade
 import io.kotest.core.spec.style.DescribeSpec
-import io.kotest.data.forAll
-import io.kotest.data.headers
-import io.kotest.data.row
-import io.kotest.data.table
+import io.kotest.datatest.withData
 import io.mockk.mockk
 import org.springframework.http.MediaType
 import org.springframework.test.web.servlet.MockHttpServletRequestDsl
@@ -42,21 +39,13 @@ class UserApiSpecs : DescribeSpec({
 
     describe("User API") {
         context("회원가입 요청 시, 입력 값이 잘못된 경우 400 BadRequest 를 반환한다.") {
-            table(
-                headers("username", "email", "password"),
-                row("", "", ""),
-                row("kitty", "aaa123", "1234567!@"),
-                row("kitty", "kitty123@gmail.com", "12345")
-            ).forAll { username, email, password ->
-
+            withData(
+                RegisterUserRequest("", "", ""),
+                RegisterUserRequest("kitty", "aaa123", "1234567!@"),
+                RegisterUserRequest("kitty", "kitty123@gmail.com", "12345"),
+            ) { request ->
                 mockMvc.post(REGISTER_URI) {
-                    jsonBody(
-                        RegisterUserRequest(
-                            username = username,
-                            email = email,
-                            password = password
-                        )
-                    )
+                    jsonBody(request)
                 }.andDo {
                     print()
                 }.andExpect {
@@ -66,12 +55,10 @@ class UserApiSpecs : DescribeSpec({
         }
 
         context("회원가입 확인 요청 시, 입력 값이 잘못된 경우 400 BadRequest 를 반환한다.") {
-            table(
-                headers("token", "email"),
-                row("", ""),
-                row("exmaple-tokens", "aaa@@@@")
-            ).forAll { token, email ->
-
+            withData(
+                RegisterConfirmRequest("", ""),
+                RegisterConfirmRequest("example-token", "aaa@@@"),
+            ) { (token, email) ->
                 mockMvc.get(REGISTER_CONFIRM_URI) {
                     param("token", token)
                     param("email", email)
@@ -84,15 +71,13 @@ class UserApiSpecs : DescribeSpec({
         }
 
         context("로그인 요청 시, 입력 값이 잘못된 경우 400 BadRequest 를 반환한다.") {
-            table(
-                headers("email", "password"),
-                row("", ""),
-                row("aaa@@@@", "12345678!"),
-                row("kitty@gmail.com", "12345")
-            ).forAll { email, password ->
-
+            withData(
+                LoginUserRequest("", ""),
+                LoginUserRequest("aaa@@@@", "12345678!"),
+                LoginUserRequest("kitty@gmail.com", "12345")
+            ) { request ->
                 mockMvc.post(LOGIN_URI) {
-                    jsonBody(LoginUserRequest(email = email, password = password))
+                    jsonBody(request)
                 }.andDo {
                     print()
                 }.andExpect {
