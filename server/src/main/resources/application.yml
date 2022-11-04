@@ -13,10 +13,9 @@ server:
     encoding:
       charset: UTF-8
       force: true
+  port: 8081
 
 management:
-  server:
-    port: 9100
   endpoints:
     enabled-by-default: false
     jmx:

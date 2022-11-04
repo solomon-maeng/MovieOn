@@ -24,3 +24,5 @@
 5. ```cd docker/mysql``` 실행
 6. ```docker-compose up -d``` 실행
 7. ```java -jar -Dspring.profiles.active=local server/build/libs/server-0.0.1.jar``` 실행
+
+애플리케이션이 실행 중이라면, ```http://localhost:8081/api/v1/swagger``` 로 이동.

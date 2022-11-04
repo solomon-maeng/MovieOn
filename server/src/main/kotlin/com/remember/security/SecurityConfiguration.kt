@@ -29,7 +29,7 @@ class SecurityConfiguration {
     }
 }
 
-private val SWAGGER_URI = arrayOf("/v3/api-docs/**", "/swagger-ui/**")
+private val SWAGGER_URI = arrayOf("/v3/api-docs/**", "/swagger-ui/**", "/api/v1/swagger")
 private const val REGISTER_URI = "/api/v1/users/register"
 private const val REGISTER_CONFIRM_URI = "/api/v1/users/register/confirm"
 private const val LOGIN_URI = "/api/v1/users/login"
