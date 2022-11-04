@@ -12,13 +12,7 @@ import org.springframework.test.web.servlet.get
 import org.springframework.test.web.servlet.post
 import org.springframework.test.web.servlet.setup.MockMvcBuilders
 
-// API URI 상수 정의
-private const val REGISTER_URI = "/api/v1/users/register"
-private const val REGISTER_CONFIRM_URI = "/api/v1/users/register/confirm"
-private const val LOGIN_URI = "/api/v1/users/login"
-private const val REISSUANCE_API = "/api/v1/users/reIssuance"
-
-class UserApiSpecs : DescribeSpec({
+class UserRequestSpec : DescribeSpec({
 
     val objectMapper = ObjectMapper()
     val userFacade = mockk<UserFacade>()
@@ -96,3 +90,8 @@ class UserApiSpecs : DescribeSpec({
         }
     }
 })
+
+private const val REGISTER_URI = "/api/v1/users/register"
+private const val REGISTER_CONFIRM_URI = "/api/v1/users/register/confirm"
+private const val LOGIN_URI = "/api/v1/users/login"
+private const val REISSUANCE_API = "/api/v1/users/reIssuance"

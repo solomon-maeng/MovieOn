@@ -46,7 +46,6 @@ class UserCommandHandlerSpecs : DescribeSpec({
         }
 
         it("RegisterUserCommand 처리 시, 올바른 입력이 주어지면, 유저가 반환된다.") {
-            // Arrange
             val sut = UserCommandHandler(fakeUserRepository(), FakePasswordEncrypter())
             val command = RegisterUserCommand(
                 username = "jiwonKim",
@@ -54,10 +53,8 @@ class UserCommandHandlerSpecs : DescribeSpec({
                 password = "123456788!"
             )
 
-            // Act
             val result = sut.handle(command)
 
-            // Assert
             assertSoftly(result) {
                 userId shouldNotBe null
                 email shouldBe "jiwonKim@gmail.com"
@@ -94,17 +91,14 @@ class UserCommandHandlerSpecs : DescribeSpec({
         }
 
         it("토큰 정보가 일치하는 경우, 유효한 상태를 가지며 도메인 이벤트가 등록된다.") {
-            // Arrange
             val sut = UserCommandHandler(fakeUserRepository(), FakePasswordEncrypter())
             val command = RegisterConfirmCommand(
                 token = "example-token",
                 email = "kitty@gmail.com"
             )
 
-            // Act
             val result = sut.handle(command)
 
-            // Assert
             assertSoftly(result) {
                 pollAllEvents().size shouldNotBe 0
                 verified shouldBe true

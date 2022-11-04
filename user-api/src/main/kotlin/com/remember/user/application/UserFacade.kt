@@ -19,7 +19,12 @@ class UserFacade(
                 user!!.pollAllEvents().forEach { event -> messageBus.publish(event) }
                 return UserDto(user.userId, user.username, user.email, user.verified, user.createdAt, user.updatedAt)
             }
-            is RegisterConfirmCommand -> userCommandHandler.handle(command)
+
+            is RegisterConfirmCommand -> {
+                val user = transactionTemplate.execute { userCommandHandler.handle(command) }
+                user!!.pollAllEvents().forEach { event -> messageBus.publish(event) }
+            }
+
             is LoginUserCommand -> userCommandHandler.handle(command)
             is ReIssuanceTokenCommand -> userCommandHandler.handle(command)
         }

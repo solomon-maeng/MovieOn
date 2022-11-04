@@ -1,6 +1,7 @@
 package com.remember.support
 
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.context.TestConstructor
@@ -22,3 +23,10 @@ annotation class RepositorySpec
 @SpringBootTest
 @TestEnvironment
 annotation class IntegrationSpec
+
+@Target(AnnotationTarget.CLASS)
+@Retention(AnnotationRetention.RUNTIME)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@TestEnvironment
+@AutoConfigureMockMvc
+annotation class ApiSpec

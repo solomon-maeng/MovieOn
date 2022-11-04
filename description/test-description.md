@@ -57,9 +57,18 @@ describe() {
 
 마지막으로, InstancePerTest는 내부 컨택스트를 포함해서 모든 테스트에 대한 인스턴스를 재생성하기 때문에 테스트 속도 및 비용 측면에서 권장되지 않는다.
 
+## 각 테스트 별 사용해야 하는 Spec 애노테이션
+
+Spec 애노테이션은 server 모듈에만 존재하며, 통합 테스트를 위해서만 사용하는 메타 애노테이션이다.
+
+사용 가능한 애노테이션은 다음과 같다.
+- ```@ApiSpec``` MockMvc를 실제 톰캣 컨테이너로 띄워서 HTTP API를 테스트할 때 사용한다. 가장 넓은 범위의 블랙 박스 테스트이다.
+- ```@IntegrationSpec``` API, Repository 그 어느 곳에 속하지 않고, 그 외의 인프라나 Facade 계층을 테스트할 때 사용한다.
+- ```@RepositorySpec``` Repository의 쿼리 결과가 기대한 대로 동작하는지 테스트할 때 사용한다.
+
 ## interfaces 계층에 대한 단위 테스트 모범 사례
 
-user-api 모듈 하위 ```/src/test/com/remember/user/interfaces```에 존재하는 UserApiSpecs를 참고하여, HTTP API에 대한
+user-api 모듈 하위 ```/src/test/com/remember/user/interfaces```에 존재하는 UserRequestSpec을 참고하여, HTTP API에 대한
 입력 값 검증 테스트를 작성할 것을 권장한다.
 
 아래의 코드처럼 withData() 안에 data class를 넣어주면, 다음과 같이 3개의 케이스에 대해 중복을 제거할 수 있고 깔끔하게 테스트가 가능하다.

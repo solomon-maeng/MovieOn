@@ -10,7 +10,7 @@ import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
 
 @RepositorySpec
-class UserRepositorySpecs(private val userRepository: JpaUserRepository) : DescribeSpec({
+class UserRepositorySpec(private val userRepository: JpaUserRepository) : DescribeSpec({
 
     describe("UserRepository") {
         it("existsByEmail 쿼리 검증") {

@@ -9,8 +9,11 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse
 import io.swagger.v3.oas.annotations.responses.ApiResponses
 import io.swagger.v3.oas.annotations.security.SecurityRequirements
 import io.swagger.v3.oas.annotations.tags.Tag
+import org.springframework.http.HttpHeaders
+import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
+import java.net.URI
 import javax.validation.Valid
 
 @Tag(name = "User", description = "유저 API")
@@ -31,7 +34,7 @@ interface UserApiSpecification {
             ApiResponse(responseCode = "400", description = "회원가입 확인 파라미터 에러")]
     )
     @GetMapping(value = ["/api/v1/users/register/confirm"])
-    fun registerConfirm(@ModelAttribute @Valid request: RegisterConfirmRequest)
+    fun registerConfirm(@ModelAttribute @Valid request: RegisterConfirmRequest): ResponseEntity<Any>
 
     @Operation(summary = "로그인", description = "회원가입 완료 사용자가 로그인하는 EndPoint 를 제공합니다.")
     @ApiResponses(
@@ -63,8 +66,13 @@ internal class UserApi(val userFacade: UserFacade) : UserApiSpecification {
         )
     }
 
-    override fun registerConfirm(request: RegisterConfirmRequest) {
+    override fun registerConfirm(request: RegisterConfirmRequest): ResponseEntity<Any> {
         userFacade.execute(request.toCommand())
+
+        val uri = URI.create("http://localhost:3000/login")
+        val header = HttpHeaders()
+        header.location = uri
+        return ResponseEntity(header, HttpStatus.SEE_OTHER)
     }
 
     override fun login(request: LoginUserRequest): ResponseEntity<TokenResponse> {
