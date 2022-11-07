@@ -10,6 +10,6 @@
 
 구현 시 대응되는 테스트 코드는 ```/src/test/kotlin/com/remember/calculator``` 하위에 있습니다.
 
-모든 테스트 케이스를 만족할 때까지 구현해주세요.
+모든 테스트 케이스를 만족할 때까지 구현해주세요. 구현 시 Number를 사용하여 StringCalculator를 구현하셔야 합니다.
 
 ## Step 2 

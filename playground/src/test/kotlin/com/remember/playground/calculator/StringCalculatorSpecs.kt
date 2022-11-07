@@ -6,6 +6,7 @@ import io.kotest.core.spec.style.DescribeSpec
 import io.kotest.matchers.should
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.string.startWith
+import java.lang.IllegalArgumentException
 
 @Ignored
 class StringCalculatorSpecs : DescribeSpec({
@@ -14,9 +15,7 @@ class StringCalculatorSpecs : DescribeSpec({
 
         context("숫자가 아닌 값이 입력되면,") {
             it("예외가 발생한다.") {
-                val sut = StringCalculator("a")
-
-                val result = shouldThrow<RuntimeException> { sut.sum() }
+                val result = shouldThrow<IllegalArgumentException> { StringCalculator("a") }
 
                 result.message should startWith("숫자 이외의 값을 입력할 수 없습니다.")
             }
@@ -24,11 +23,9 @@ class StringCalculatorSpecs : DescribeSpec({
 
         context("음수 값이 입력되면,") {
             it("예외가 발생한다.") {
-                val sut = StringCalculator("-10")
+                val result = shouldThrow<IllegalArgumentException> { StringCalculator("-10") }
 
-                val result = shouldThrow<RuntimeException> { sut.sum() }
-
-                result.message should startWith("음수 값을 입력할 수 없습니다")
+                result.message should startWith("음수 값을 입력할 수 없습니다.")
             }
         }
 
@@ -84,7 +81,7 @@ class StringCalculatorSpecs : DescribeSpec({
 
         context("네 수가 복잡한 문자열과 함께 입력되면,") {
             it("문자열에 포함된 네 수의 합을 반환한다.") {
-                val sut = StringCalculator("//;\\n1;2,3:4")
+                val sut = StringCalculator("//;\n1;2,3:4")
 
                 sut.sum() shouldBe 10
             }

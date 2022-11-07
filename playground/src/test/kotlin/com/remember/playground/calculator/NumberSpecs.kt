@@ -27,7 +27,7 @@ class NumberSpecs : DescribeSpec({
 
     describe("입력 값이 공백이라면,") {
         it("0을 반환한다.") {
-            Number("0") shouldBe 0
+            Number("").number shouldBe 0
         }
     }
 })
