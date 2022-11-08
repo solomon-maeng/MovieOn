@@ -1,4 +1,4 @@
-package com.remember.shared.contracts
+package com.remember.shared.contracts.commands
 
 data class RegisterUserCommand(
     val username: String,
@@ -6,7 +6,7 @@ data class RegisterUserCommand(
     val password: String
 ) : Command
 
-data class RegisterConfirmCommand(val token: String, val email: String) : Command
+data class RegisteredUserConfirmCommand(val token: String, val email: String) : Command
 
 data class LoginUserCommand(val email: String, val password: String) : Command
 

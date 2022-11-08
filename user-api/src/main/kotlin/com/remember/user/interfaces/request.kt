@@ -1,8 +1,8 @@
 package com.remember.user.interfaces
 
-import com.remember.shared.contracts.LoginUserCommand
-import com.remember.shared.contracts.RegisterConfirmCommand
-import com.remember.shared.contracts.RegisterUserCommand
+import com.remember.shared.contracts.commands.LoginUserCommand
+import com.remember.shared.contracts.commands.RegisteredUserConfirmCommand
+import com.remember.shared.contracts.commands.RegisterUserCommand
 import io.swagger.v3.oas.annotations.media.Schema
 import javax.validation.constraints.Email
 import javax.validation.constraints.NotBlank
@@ -40,8 +40,8 @@ data class RegisterConfirmRequest(
     @field:NotBlank @field:Email
     val email: String
 ) {
-    fun toCommand(): RegisterConfirmCommand {
-        return RegisterConfirmCommand(token = token, email = email)
+    fun toCommand(): RegisteredUserConfirmCommand {
+        return RegisteredUserConfirmCommand(token = token, email = email)
     }
 }
 

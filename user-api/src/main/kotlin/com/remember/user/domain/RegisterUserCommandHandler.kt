@@ -1,12 +1,9 @@
 package com.remember.user.domain
 
-import com.remember.shared.contracts.LoginUserCommand
-import com.remember.shared.contracts.ReIssuanceTokenCommand
-import com.remember.shared.contracts.RegisterConfirmCommand
-import com.remember.shared.contracts.RegisterUserCommand
-import java.util.*
+import com.remember.shared.contracts.commands.RegisterUserCommand
+import java.util.UUID
 
-class UserCommandHandler(
+class RegisterUserCommandHandler(
     val userRepository: UserRepository,
     val passwordEncrypter: PasswordEncrypter
 ) {
@@ -23,20 +20,5 @@ class UserCommandHandler(
                 token = UUID.randomUUID().toString()
             )
         )
-    }
-
-    fun handle(command: RegisterConfirmCommand): User {
-        val user = userRepository.findByEmail(command.email)
-            ?: throw IllegalArgumentException("유저가 존재하지 않습니다.")
-        user.registerConfirm(command.token)
-        return user
-    }
-
-    fun handle(command: LoginUserCommand) {
-
-    }
-
-    fun handle(command: ReIssuanceTokenCommand) {
-
     }
 }

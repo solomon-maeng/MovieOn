@@ -1,13 +1,24 @@
 package com.remember.user.application
 
-import com.remember.shared.contracts.*
-import com.remember.user.domain.UserCommandHandler
+import com.remember.shared.MessageBus
+import com.remember.shared.contracts.commands.Command
+import com.remember.shared.contracts.commands.LoginUserCommand
+import com.remember.shared.contracts.commands.ReIssuanceTokenCommand
+import com.remember.shared.contracts.commands.RegisteredUserConfirmCommand
+import com.remember.shared.contracts.commands.RegisterUserCommand
+import com.remember.user.domain.LoginUserCommandHandler
+import com.remember.user.domain.ReIssuanceTokenCommandHandler
+import com.remember.user.domain.RegisterUserCommandHandler
+import com.remember.user.domain.RegisteredUserConfirmCommandHandler
 import org.springframework.stereotype.Service
 import org.springframework.transaction.support.TransactionTemplate
 
 @Service
 class UserFacade(
-    private val userCommandHandler: UserCommandHandler,
+    private val registerHandler: RegisterUserCommandHandler,
+    private val confirmHandler: RegisteredUserConfirmCommandHandler,
+    private val loginHandler: LoginUserCommandHandler,
+    private val tokenHandler: ReIssuanceTokenCommandHandler,
     private val transactionTemplate: TransactionTemplate,
     private val messageBus: MessageBus
 ) {
@@ -15,18 +26,18 @@ class UserFacade(
     fun execute(command: Command): Any {
         return when (command) {
             is RegisterUserCommand -> {
-                val user = transactionTemplate.execute { userCommandHandler.handle(command) }
+                val user = transactionTemplate.execute { registerHandler.handle(command) }
                 user!!.pollAllEvents().forEach { event -> messageBus.publish(event) }
                 return UserDto(user.userId, user.username, user.email, user.verified, user.createdAt, user.updatedAt)
             }
 
-            is RegisterConfirmCommand -> {
-                val user = transactionTemplate.execute { userCommandHandler.handle(command) }
+            is RegisteredUserConfirmCommand -> {
+                val user = transactionTemplate.execute { confirmHandler.handle(command) }
                 user!!.pollAllEvents().forEach { event -> messageBus.publish(event) }
             }
 
-            is LoginUserCommand -> userCommandHandler.handle(command)
-            is ReIssuanceTokenCommand -> userCommandHandler.handle(command)
+            is LoginUserCommand -> loginHandler.handle(command)
+            is ReIssuanceTokenCommand -> tokenHandler.handle(command)
         }
     }
 }

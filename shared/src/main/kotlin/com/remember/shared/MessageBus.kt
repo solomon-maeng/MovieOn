@@ -1,4 +1,4 @@
-package com.remember.shared.contracts
+package com.remember.shared
 
 import com.remember.shared.domain.model.DomainEvent
 

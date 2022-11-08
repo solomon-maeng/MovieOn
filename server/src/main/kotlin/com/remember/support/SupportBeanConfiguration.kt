@@ -1,6 +1,6 @@
 package com.remember.support
 
-import com.remember.shared.contracts.MessageBus
+import com.remember.shared.MessageBus
 import com.remember.shared.domain.model.DomainEvent
 import org.springframework.context.ApplicationEventPublisher
 import org.springframework.context.annotation.Bean
