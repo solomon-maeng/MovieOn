@@ -6,6 +6,7 @@ spring:
       hibernate:
         format_sql: true
     open-in-view: false
+    show-sql: true
   datasource:
     url: jdbc:h2:mem:test;MODE=MYSQL;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
     username: sa
@@ -19,7 +20,6 @@ spring:
 
 logging:
   level:
-    org.hibernate.SQL: debug
     org.hibernate.type.descriptor.sql.BasicBinder: trace
     org.springframework.transaction: trace
     org.springframework.orm: trace
