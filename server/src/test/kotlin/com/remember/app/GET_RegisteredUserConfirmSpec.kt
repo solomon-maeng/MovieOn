@@ -1,5 +1,6 @@
 package com.remember.app
 
+import com.fasterxml.jackson.databind.ObjectMapper
 import com.remember.support.AbstractApiSpec
 import com.remember.user.domain.User
 import com.remember.user.infrastructure.jpa.JpaUserRepository
@@ -10,7 +11,8 @@ import org.springframework.test.web.servlet.get
 class GET_RegisteredUserConfirmSpec(
     private val mockMvc: MockMvc,
     private val userRepository: JpaUserRepository,
-) : AbstractApiSpec() {
+    objectMapper: ObjectMapper
+) : AbstractApiSpec(objectMapper) {
 
     init {
         afterEach {

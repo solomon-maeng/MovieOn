@@ -1,6 +1,7 @@
 package com.remember.user.domain
 
 import com.remember.shared.contracts.commands.RegisteredUserConfirmCommand
+import com.remember.shared.error.BaseException
 import io.kotest.assertions.assertSoftly
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.DescribeSpec
@@ -9,7 +10,6 @@ import io.kotest.matchers.should
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
 import io.kotest.matchers.string.startWith
-import java.lang.IllegalArgumentException
 import java.util.UUID
 
 class RegisteredUserConfirmCommandHandlerSpec: DescribeSpec({
@@ -34,7 +34,7 @@ class RegisteredUserConfirmCommandHandlerSpec: DescribeSpec({
             ) { (command, actual) ->
                 val sut = RegisteredUserConfirmCommandHandler(fakeUserRepository())
 
-                val result = shouldThrow<IllegalArgumentException> { sut.handle(command) }
+                val result = shouldThrow<BaseException> { sut.handle(command) }
 
                 result.message should startWith(actual)
             }

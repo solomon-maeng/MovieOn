@@ -4,22 +4,14 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.remember.support.AbstractApiSpec
 import com.remember.user.infrastructure.jpa.JpaUserRepository
 import com.remember.user.interfaces.RegisterUserRequest
-import org.springframework.http.MediaType
-import org.springframework.test.web.servlet.MockHttpServletRequestDsl
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.post
 
 class POST_RegisterUserSpec(
     private val mockMvc: MockMvc,
-    private val objectMapper: ObjectMapper,
+    objectMapper: ObjectMapper,
     private val userRepository: JpaUserRepository,
-) : AbstractApiSpec() {
-
-    fun MockHttpServletRequestDsl.jsonBody(value: Any) {
-        accept = MediaType.APPLICATION_JSON
-        contentType = MediaType.APPLICATION_JSON
-        content = objectMapper.writeValueAsString(value)
-    }
+) : AbstractApiSpec(objectMapper) {
 
     init {
         afterEach {
