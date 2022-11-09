@@ -1,5 +1,6 @@
-package com.remember.user.domain
+package com.remember.user.unit_test.domain
 
+import com.remember.user.domain.User
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.should

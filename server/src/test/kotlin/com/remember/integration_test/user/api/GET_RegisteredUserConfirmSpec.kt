@@ -1,4 +1,4 @@
-package com.remember.app
+package com.remember.integration_test.user.api
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.remember.support.AbstractApiSpec
@@ -15,9 +15,6 @@ class GET_RegisteredUserConfirmSpec(
 ) : AbstractApiSpec(objectMapper) {
 
     init {
-        afterEach {
-            userRepository.deleteAll()
-        }
 
         describe("/api/v1/users/register/confirm") {
             context("회원가입 완료된 유저가 존재하며") {
@@ -40,6 +37,8 @@ class GET_RegisteredUserConfirmSpec(
             }
         }
     }
-}
 
-private const val REGISTER_CONFIRM_URI = "/api/v1/users/register/confirm"
+    companion object {
+        private const val REGISTER_CONFIRM_URI = "/api/v1/users/register/confirm"
+    }
+}

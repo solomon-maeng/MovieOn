@@ -1,4 +1,8 @@
-package com.remember.user.domain
+package com.remember.user.unit_test.domain
+
+import com.remember.user.domain.PasswordEncrypter
+import com.remember.user.domain.User
+import com.remember.user.domain.UserRepository
 
 class FakeUserRepository : UserRepository {
 

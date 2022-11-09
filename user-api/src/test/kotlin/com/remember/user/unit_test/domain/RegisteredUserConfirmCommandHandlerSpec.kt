@@ -1,7 +1,8 @@
-package com.remember.user.domain
+package com.remember.user.unit_test.domain
 
 import com.remember.shared.contracts.commands.RegisteredUserConfirmCommand
 import com.remember.shared.error.BaseException
+import com.remember.user.domain.RegisteredUserConfirmCommandHandler
 import io.kotest.assertions.assertSoftly
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.DescribeSpec

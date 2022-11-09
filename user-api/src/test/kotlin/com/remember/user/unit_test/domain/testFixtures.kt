@@ -1,7 +1,8 @@
-package com.remember.user.domain
+package com.remember.user.unit_test.domain
 
 import com.remember.shared.contracts.commands.RegisterUserCommand
 import com.remember.shared.contracts.commands.RegisteredUserConfirmCommand
+import com.remember.user.domain.User
 
 data class SetUpRegisterUserCommand(val command: RegisterUserCommand, val actual: String)
 data class SetUpRegisterConfirmCommand(val command: RegisteredUserConfirmCommand, val actual: String)

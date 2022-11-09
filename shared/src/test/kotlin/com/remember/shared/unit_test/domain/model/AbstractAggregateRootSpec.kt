@@ -1,9 +1,11 @@
-package com.remember.shared.domain.model
+package com.remember.shared.unit_test.domain.model
 
+import com.remember.shared.domain.model.AbstractAggregateRoot
+import com.remember.shared.domain.model.DomainEvent
 import io.kotest.core.spec.style.DescribeSpec
 import io.kotest.matchers.shouldBe
 
-class AbstractAggregateRootSpecs : DescribeSpec({
+class AbstractAggregateRootSpec : DescribeSpec({
 
     describe("AbstractAggregateRoot") {
         context("이벤트가 등록된 상태에서,") {

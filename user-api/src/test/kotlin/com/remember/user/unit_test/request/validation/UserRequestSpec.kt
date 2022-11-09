@@ -1,7 +1,12 @@
-package com.remember.user.interfaces
+package com.remember.user.unit_test.request.validation
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.remember.user.application.UserFacade
+import com.remember.user.interfaces.LoginUserRequest
+import com.remember.user.interfaces.RegisterConfirmRequest
+import com.remember.user.interfaces.RegisterUserRequest
+import com.remember.user.interfaces.UserApi
+import com.remember.user.interfaces.UserApiSpecification
 import io.kotest.core.spec.style.DescribeSpec
 import io.kotest.datatest.withData
 import io.mockk.mockk
@@ -89,9 +94,12 @@ class UserRequestSpec : DescribeSpec({
                 }
         }
     }
-})
+}) {
 
-private const val REGISTER_URI = "/api/v1/users/register"
-private const val REGISTER_CONFIRM_URI = "/api/v1/users/register/confirm"
-private const val LOGIN_URI = "/api/v1/users/login"
-private const val REISSUANCE_API = "/api/v1/users/reIssuance"
+    companion object {
+        private const val REGISTER_URI = "/api/v1/users/register"
+        private const val REGISTER_CONFIRM_URI = "/api/v1/users/register/confirm"
+        private const val LOGIN_URI = "/api/v1/users/login"
+        private const val REISSUANCE_API = "/api/v1/users/reIssuance"
+    }
+}

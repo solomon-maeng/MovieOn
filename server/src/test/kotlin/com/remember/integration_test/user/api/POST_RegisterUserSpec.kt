@@ -1,8 +1,7 @@
-package com.remember.app
+package com.remember.integration_test.user.api
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.remember.support.AbstractApiSpec
-import com.remember.user.infrastructure.jpa.JpaUserRepository
 import com.remember.user.interfaces.RegisterUserRequest
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.post
@@ -10,13 +9,9 @@ import org.springframework.test.web.servlet.post
 class POST_RegisterUserSpec(
     private val mockMvc: MockMvc,
     objectMapper: ObjectMapper,
-    private val userRepository: JpaUserRepository,
 ) : AbstractApiSpec(objectMapper) {
 
     init {
-        afterEach {
-            userRepository.deleteAll()
-        }
 
         describe("/api/v1/users/register") {
             it("클라이언트가 회원가입에 알맞은 입력을 제공하면, 회원가입 처리 후 유저가 반환된다.") {
@@ -38,6 +33,9 @@ class POST_RegisterUserSpec(
             }
         }
     }
-}
 
-private const val REGISTER_URI = "/api/v1/users/register"
+    companion object {
+
+        private const val REGISTER_URI = "/api/v1/users/register"
+    }
+}

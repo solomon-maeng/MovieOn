@@ -1,4 +1,4 @@
-package com.remember.query
+package com.remember.integration_test.user.query
 
 import com.remember.support.RepositorySpec
 import com.remember.user.domain.User
@@ -8,7 +8,9 @@ import io.kotest.matchers.booleans.shouldBeFalse
 import io.kotest.matchers.shouldBe
 
 @RepositorySpec
-class UserRepositorySpec(private val userRepository: JpaUserRepository) : DescribeSpec({
+class UserRepositorySpec(
+    private val userRepository: JpaUserRepository
+) : DescribeSpec({
 
     describe("UserRepository") {
 
