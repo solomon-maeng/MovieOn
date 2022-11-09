@@ -1,5 +1,6 @@
 package com.remember.integration_test.user.query
 
+import com.remember.support.DatabaseCleaner
 import com.remember.support.RepositorySpec
 import com.remember.user.domain.User
 import com.remember.user.infrastructure.jpa.JpaUserRepository
@@ -9,11 +10,15 @@ import io.kotest.matchers.shouldBe
 
 @RepositorySpec
 class UserRepositorySpec(
-    private val userRepository: JpaUserRepository
+    private val userRepository: JpaUserRepository,
+    private val cleaner: DatabaseCleaner
 ) : DescribeSpec({
 
-    describe("UserRepository") {
+    afterTest {
+        cleaner.clean()
+    }
 
+    describe("UserRepository") {
         it("existsByEmail 쿼리 검증") {
             userRepository.existsByUserInformationEmail("some@gmail.com").shouldBeFalse()
         }
