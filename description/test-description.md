@@ -29,33 +29,7 @@
 
 ## 각 테스트 별 권장하는 Kotest Isolation Mode
 
-기본적으로 Domain 계층에 대한 테스트는 기본 값인 SingleInstance Mode를 사용할 것을 권장한다.
-
-- SingleInstance Mode를 사용해도 좋은 이유는, 외부 인프라, Spring에 의존하지 않은 순수한 POKO 테스트이기 때문이다.
-
-다음과 같이, 통합 테스트를 작성해야 하는 경우는 InstancePerLeaf Mode를 사용할 것을 권장한다.
-
-- 다음과 같이 작성하면, describe 컨택스트 별로 한번 씩만 테스트 인스턴스를 생성한다. 따라서 총 2번 생성된다.
-
-```kotlin
-describe() {
-    context() {
-        it() {
-
-        }
-    }
-}
-
-describe() {
-    context() {
-        it() {
-
-        }
-    }
-}
-```
-
-마지막으로, InstancePerTest는 내부 컨택스트를 포함해서 모든 테스트에 대한 인스턴스를 재생성하기 때문에 테스트 속도 및 비용 측면에서 권장되지 않는다.
+모든 테스트가 특정 컨택스트에 의존하지 않고, 병렬 테스트가 가능해야 하므로 Isolation Mode는 절대 수정하지 않는다.
 
 ## 각 테스트 별 사용해야 하는 Spec 애노테이션
 

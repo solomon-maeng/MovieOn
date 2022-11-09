@@ -2,20 +2,29 @@ package com.remember.integration_test.user.api
 
 import com.remember.support.AbstractApiSpec
 import com.remember.support.DatabaseCleaner
+import com.remember.user.domain.User
+import com.remember.user.infrastructure.jpa.JpaUserRepository
 import com.remember.user.interfaces.RegisterUserRequest
 import com.remember.user.interfaces.UserResponse
 import io.kotest.assertions.assertSoftly
+import io.kotest.datatest.withData
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
 import org.springframework.boot.test.web.client.TestRestTemplate
+import org.springframework.http.HttpStatus
 
 class POST_RegisterUserSpec(
     private val client: TestRestTemplate,
     private val cleaner: DatabaseCleaner,
+    private val userRepository: JpaUserRepository,
 ) : AbstractApiSpec() {
 
     init {
-        afterTest {
+        beforeSpec {
+            userRepository.save(User.create("rebwon", "rebwon@gmail.com", "12345678!", "example-token"))
+        }
+
+        afterSpec {
             cleaner.clean()
         }
 
@@ -34,6 +43,17 @@ class POST_RegisterUserSpec(
                     verified shouldBe false
                     createdAt shouldNotBe null
                     updatedAt shouldNotBe null
+                }
+            }
+
+            context("회원가입 요청 시, 입력 값이 중복된 경우 400 BadRequest 를 반환한다.") {
+                withData(
+                    RegisterUserRequest("rebwon", "happy12@gmail.com", "1234567!@"),
+                    RegisterUserRequest("happy12", "rebwon@gmail.com", "1234567!@"),
+                ) { request ->
+                    val response = client.postForEntity(uri, request, UserResponse::class.java)
+
+                    response.statusCode shouldBe HttpStatus.BAD_REQUEST
                 }
             }
         }

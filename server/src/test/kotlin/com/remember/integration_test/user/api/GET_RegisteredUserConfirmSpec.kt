@@ -18,7 +18,7 @@ class GET_RegisteredUserConfirmSpec(
 ) : AbstractApiSpec() {
 
     init {
-        afterTest {
+        afterSpec {
             cleaner.clean()
         }
 
