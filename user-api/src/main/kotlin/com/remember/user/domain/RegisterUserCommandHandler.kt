@@ -9,8 +9,8 @@ class RegisterUserCommandHandler(
 ) {
 
     fun handle(command: RegisterUserCommand): User {
-        if (userRepository.existsByEmail(command.email)) throw DuplicatedEmail("이메일이 중복입니다.")
-        if (userRepository.existsByUsername(command.username)) throw DuplicatedUsername("유저명이 중복입니다.")
+        if (userRepository.existsByEmail(command.email)) throw InvariantViolation("이메일이 중복입니다.")
+        if (userRepository.existsByUsername(command.username)) throw InvariantViolation("유저명이 중복입니다.")
 
         return userRepository.save(
             User.create(

@@ -1,7 +1,7 @@
 package com.remember.user.unit_test.domain
 
 import com.remember.shared.Role
-import com.remember.shared.contracts.commands.RegisterUserCommand
+import com.remember.shared.contracts.RegisterUserCommand
 import com.remember.shared.error.BaseException
 import com.remember.user.domain.RegisterUserCommandHandler
 import io.kotest.assertions.assertSoftly

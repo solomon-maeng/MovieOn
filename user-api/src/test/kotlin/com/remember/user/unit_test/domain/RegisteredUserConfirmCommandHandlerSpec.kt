@@ -1,6 +1,6 @@
 package com.remember.user.unit_test.domain
 
-import com.remember.shared.contracts.commands.RegisteredUserConfirmCommand
+import com.remember.shared.contracts.RegisteredUserConfirmCommand
 import com.remember.shared.error.BaseException
 import com.remember.user.domain.RegisteredUserConfirmCommandHandler
 import io.kotest.assertions.assertSoftly
@@ -30,7 +30,7 @@ class RegisteredUserConfirmCommandHandlerSpec: DescribeSpec({
                         token = UUID.randomUUID().toString(),
                         email = "kitty@gmail.com"
                     ),
-                    "가입 확인 토큰이 일치하지 않습닌다."
+                    "가입 확인 토큰이 일치하지 않습니다."
                 ),
             ) { (command, actual) ->
                 val sut = RegisteredUserConfirmCommandHandler(fakeUserRepository())

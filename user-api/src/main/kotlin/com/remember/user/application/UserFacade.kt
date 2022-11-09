@@ -36,7 +36,7 @@ class UserFacade(
                 user!!.pollAllEvents().forEach { event -> messageBus.publish(event) }
             }
 
-            is LoginUserCommand -> loginHandler.handle(command)
+            is LoginUserCommand -> transactionTemplate.execute { loginHandler.handle(command) }!!
             is ReIssuanceTokenCommand -> tokenHandler.handle(command)
         }
     }

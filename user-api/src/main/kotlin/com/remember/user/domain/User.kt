@@ -5,7 +5,6 @@ import com.remember.shared.Role
 import com.remember.shared.domain.model.AbstractAggregateRoot
 import org.hibernate.annotations.SQLDelete
 import org.hibernate.annotations.Where
-import java.lang.IllegalArgumentException
 import java.util.*
 import javax.persistence.*
 
@@ -53,8 +52,13 @@ class User(
                 registerEvent(RegisterCompletedEvent(userId = userKey, email = email))
             }
 
-            else -> throw IllegalArgumentException("가입 확인 토큰이 일치하지 않습니다.")
+            else -> throw InvariantViolation("가입 확인 토큰이 일치하지 않습니다.")
         }
+    }
+
+    fun validate(rawPassword: String, passwordEncrypter: PasswordEncrypter) {
+        if (!verified) throw InvariantViolation("가입 확인이 되지 않은 유저입니다.")
+        if (!passwordEncrypter.matches(rawPassword, this.userInformation.password)) throw InvariantViolation("비밀번호가 일치하지 않습니다.")
     }
 
     companion object {

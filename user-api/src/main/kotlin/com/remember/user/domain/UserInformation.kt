@@ -12,5 +12,5 @@ data class UserInformation(
     val email: String,
 
     @Column(nullable = false)
-    private val password: String,
+    val password: String,
 )

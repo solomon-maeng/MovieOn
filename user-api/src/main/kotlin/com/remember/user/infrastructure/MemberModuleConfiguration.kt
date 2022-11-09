@@ -5,8 +5,10 @@ import com.remember.user.domain.PasswordEncrypter
 import com.remember.user.domain.ReIssuanceTokenCommandHandler
 import com.remember.user.domain.RegisterUserCommandHandler
 import com.remember.user.domain.RegisteredUserConfirmCommandHandler
+import com.remember.user.domain.TokenGenerator
 import com.remember.user.domain.UserRepository
 import com.remember.user.infrastructure.jpa.UserRepositoryAdapter
+import com.remember.user.infrastructure.jwt.DefaultTokenGenerator
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.Import
@@ -31,8 +33,17 @@ class MemberModuleConfiguration {
     }
 
     @Bean
-    fun loginUserCommandHandler(): LoginUserCommandHandler {
-        return LoginUserCommandHandler()
+    fun loginUserCommandHandler(
+        userRepository: UserRepository,
+        passwordEncrypter: PasswordEncrypter,
+        tokenGenerator: TokenGenerator
+    ): LoginUserCommandHandler {
+        return LoginUserCommandHandler(userRepository, passwordEncrypter, tokenGenerator)
+    }
+
+    @Bean
+    fun defaultTokenGenerator(): TokenGenerator {
+        return DefaultTokenGenerator()
     }
 
     @Bean
