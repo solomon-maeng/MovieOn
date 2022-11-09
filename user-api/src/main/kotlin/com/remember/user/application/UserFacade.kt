@@ -1,11 +1,11 @@
 package com.remember.user.application
 
 import com.remember.shared.MessageBus
-import com.remember.shared.contracts.commands.Command
-import com.remember.shared.contracts.commands.LoginUserCommand
-import com.remember.shared.contracts.commands.ReIssuanceTokenCommand
-import com.remember.shared.contracts.commands.RegisteredUserConfirmCommand
-import com.remember.shared.contracts.commands.RegisterUserCommand
+import com.remember.shared.contracts.Command
+import com.remember.shared.contracts.LoginUserCommand
+import com.remember.shared.contracts.ReIssuanceTokenCommand
+import com.remember.shared.contracts.RegisteredUserConfirmCommand
+import com.remember.shared.contracts.RegisterUserCommand
 import com.remember.user.domain.LoginUserCommandHandler
 import com.remember.user.domain.ReIssuanceTokenCommandHandler
 import com.remember.user.domain.RegisterUserCommandHandler

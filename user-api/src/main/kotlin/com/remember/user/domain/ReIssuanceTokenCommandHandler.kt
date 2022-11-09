@@ -1,6 +1,6 @@
 package com.remember.user.domain
 
-import com.remember.shared.contracts.commands.ReIssuanceTokenCommand
+import com.remember.shared.contracts.ReIssuanceTokenCommand
 
 class ReIssuanceTokenCommandHandler {
 

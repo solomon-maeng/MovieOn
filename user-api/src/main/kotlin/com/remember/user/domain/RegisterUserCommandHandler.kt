@@ -1,6 +1,6 @@
 package com.remember.user.domain
 
-import com.remember.shared.contracts.commands.RegisterUserCommand
+import com.remember.shared.contracts.RegisterUserCommand
 import java.util.UUID
 
 class RegisterUserCommandHandler(

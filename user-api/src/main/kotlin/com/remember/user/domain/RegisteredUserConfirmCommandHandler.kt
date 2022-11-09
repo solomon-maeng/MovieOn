@@ -1,6 +1,6 @@
 package com.remember.user.domain
 
-import com.remember.shared.contracts.commands.RegisteredUserConfirmCommand
+import com.remember.shared.contracts.RegisteredUserConfirmCommand
 
 class RegisteredUserConfirmCommandHandler(val userRepository: UserRepository) {
 

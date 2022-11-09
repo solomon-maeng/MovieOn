@@ -1,6 +1,6 @@
 package com.remember.user.interfaces
 
-import com.remember.shared.contracts.commands.ReIssuanceTokenCommand
+import com.remember.shared.contracts.ReIssuanceTokenCommand
 import com.remember.user.application.TokenDto
 import com.remember.user.application.UserDto
 import com.remember.user.application.UserFacade

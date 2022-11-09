@@ -1,4 +1,4 @@
-package com.remember.shared.contracts.commands
+package com.remember.shared.contracts
 
 data class RegisterUserCommand(
     val username: String,

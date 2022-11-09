@@ -1,8 +1,8 @@
 package com.remember.user.interfaces
 
-import com.remember.shared.contracts.commands.LoginUserCommand
-import com.remember.shared.contracts.commands.RegisteredUserConfirmCommand
-import com.remember.shared.contracts.commands.RegisterUserCommand
+import com.remember.shared.contracts.LoginUserCommand
+import com.remember.shared.contracts.RegisteredUserConfirmCommand
+import com.remember.shared.contracts.RegisterUserCommand
 import io.swagger.v3.oas.annotations.media.Schema
 import javax.validation.constraints.Email
 import javax.validation.constraints.NotBlank
