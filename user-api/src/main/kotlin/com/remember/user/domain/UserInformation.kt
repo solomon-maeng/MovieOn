@@ -4,7 +4,7 @@ import javax.persistence.Column
 import javax.persistence.Embeddable
 
 @Embeddable
-data class UserInformation(
+internal data class UserInformation(
     @Column(nullable = false, unique = true)
     val username: String,
 

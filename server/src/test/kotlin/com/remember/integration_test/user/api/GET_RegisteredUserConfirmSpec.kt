@@ -7,6 +7,7 @@ import com.remember.user.infrastructure.jpa.JpaUserRepository
 import com.remember.user.interfaces.RegisterConfirmRequest
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.matchers.shouldBe
+import io.mockk.every
 import org.springframework.boot.test.web.client.TestRestTemplate
 import org.springframework.http.HttpStatus
 import org.springframework.web.client.ResourceAccessException
@@ -43,6 +44,7 @@ class GET_RegisteredUserConfirmSpec(
 
                     shouldThrow<ResourceAccessException> {
                         client.getForEntity(requestUri, Any::class.java)
+                        every { messageBus.publish(any()) }
                     }
                 }
             }

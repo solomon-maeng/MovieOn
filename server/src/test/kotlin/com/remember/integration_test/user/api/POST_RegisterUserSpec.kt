@@ -10,6 +10,7 @@ import io.kotest.assertions.assertSoftly
 import io.kotest.datatest.withData
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
+import io.mockk.every
 import org.springframework.boot.test.web.client.TestRestTemplate
 import org.springframework.http.HttpStatus
 
@@ -35,6 +36,7 @@ class POST_RegisterUserSpec(
                 val request = RegisterUserRequest("kitty", "kitty@gmail.com", "12345678!")
 
                 val response = client.postForObject(uri, request, UserResponse::class.java)
+                every { messageBus.publish(any()) }
 
                 assertSoftly(response) {
                     userId shouldNotBe null

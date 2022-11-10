@@ -12,7 +12,7 @@ import javax.persistence.*
 @Table(name = "users")
 @SQLDelete(sql = "UPDATE users SET deleted_at = now() WHERE id = ?")
 @Where(clause = "deleted_at is null")
-class User(
+class User private constructor(
     @Embedded
     private var userInformation: UserInformation,
 
@@ -56,7 +56,7 @@ class User(
         }
     }
 
-    fun validate(rawPassword: String, passwordEncrypter: PasswordEncrypter) {
+    fun beforeLoginValidate(rawPassword: String, passwordEncrypter: PasswordEncrypter) {
         if (!verified) throw InvariantViolation("가입 확인이 되지 않은 유저입니다.")
         if (!passwordEncrypter.matches(rawPassword, this.userInformation.password)) throw InvariantViolation("비밀번호가 일치하지 않습니다.")
     }

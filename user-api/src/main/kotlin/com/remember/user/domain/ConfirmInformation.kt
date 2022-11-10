@@ -4,7 +4,7 @@ import javax.persistence.Column
 import javax.persistence.Embeddable
 
 @Embeddable
-data class ConfirmInformation(
+internal data class ConfirmInformation(
     @Column(nullable = false)
     val token: String,
 

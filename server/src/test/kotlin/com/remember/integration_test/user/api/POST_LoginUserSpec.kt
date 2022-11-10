@@ -6,7 +6,9 @@ import com.remember.user.domain.User
 import com.remember.user.infrastructure.jpa.JpaUserRepository
 import com.remember.user.interfaces.LoginUserRequest
 import com.remember.user.interfaces.TokenResponse
+import io.kotest.assertions.assertSoftly
 import io.kotest.matchers.shouldBe
+import io.kotest.matchers.shouldNotBe
 import org.springframework.boot.test.web.client.TestRestTemplate
 import org.springframework.http.HttpStatus
 
@@ -18,7 +20,7 @@ class POST_LoginUserSpec(
 
     init {
         beforeSpec {
-            val user1 = User.create("jeremy", "jeremy@gmail.com", "12345678!", "example-token")
+            val user1 = User.create("jeremy", "jeremy@gmail.com", "\$2a\$10\$f4UTUsk5eNvg59mlvvlNZ.TEaawEwO9KwzUrAEIXL4YiJSGuoklbW", "example-token")
             user1.registerConfirm("example-token")
             val user2 = User.create("rebwon", "rebwon@gmail.com", "12345678!", "example-token")
             userRepository.saveAll(mutableListOf(user1, user2))
@@ -53,6 +55,18 @@ class POST_LoginUserSpec(
                 val response = client.postForEntity(uri, request, TokenResponse::class.java)
 
                 response.statusCode shouldBe HttpStatus.BAD_REQUEST
+            }
+
+            xit("로그인 요청이 정상적으로 처리되고 access, refresh 토큰이 반환된다.") {
+                val request = LoginUserRequest("jeremy@gmail.com", "12345678!")
+
+                val response = client.postForEntity(uri, request, TokenResponse::class.java)
+
+                response.statusCode shouldBe HttpStatus.OK
+                assertSoftly(response.body!!) {
+                    accessToken shouldNotBe null
+                    refreshToken shouldNotBe null
+                }
             }
         }
     }

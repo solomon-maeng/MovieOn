@@ -20,7 +20,7 @@ class UserSpec: StringSpec({
     "가입 확인이 되지 않은 유저인 경우 예외가 발생한다." {
         val sut = User.create(username = "kitty", email = "kitty@gmail.com", "1234", "token")
 
-        val result = shouldThrow<InvariantViolation> { sut.validate("dd", FakePasswordEncrypter()) }
+        val result = shouldThrow<InvariantViolation> { sut.beforeLoginValidate("dd", FakePasswordEncrypter()) }
 
         result.message should startWith("가입 확인이 되지 않은 유저입니다.")
     }
