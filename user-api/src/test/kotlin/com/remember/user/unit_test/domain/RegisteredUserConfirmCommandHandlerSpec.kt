@@ -3,6 +3,7 @@ package com.remember.user.unit_test.domain
 import com.remember.shared.contracts.RegisteredUserConfirmCommand
 import com.remember.shared.error.BaseException
 import com.remember.user.domain.RegisteredUserConfirmCommandHandler
+import com.remember.user.domain.User
 import io.kotest.assertions.assertSoftly
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.DescribeSpec
@@ -16,7 +17,7 @@ import java.util.UUID
 class RegisteredUserConfirmCommandHandlerSpec: DescribeSpec({
 
     describe("RegisterConfirmCommandHandler") {
-        context("RegisteredUserConfirmCommand 처리 시, 입력 값이 잘못된 경우 예외가 발생한다.") {
+        context("RegisteredUserConfirmCommand 처리 시, 유효성 검증에 실패한 경우 예외가 발생한다.") {
             withData(
                 SetUpRegisterConfirmCommand(
                     RegisteredUserConfirmCommand(
@@ -33,7 +34,7 @@ class RegisteredUserConfirmCommandHandlerSpec: DescribeSpec({
                     "가입 확인 토큰이 일치하지 않습니다."
                 ),
             ) { (command, actual) ->
-                val sut = RegisteredUserConfirmCommandHandler(fakeUserRepository())
+                val sut = RegisteredUserConfirmCommandHandler(setUpUserAndUserRepository())
 
                 val result = shouldThrow<BaseException> { sut.handle(command) }
 
@@ -42,7 +43,7 @@ class RegisteredUserConfirmCommandHandlerSpec: DescribeSpec({
         }
 
         it("토큰 정보가 일치하는 경우, 유효한 상태를 가지며 도메인 이벤트가 등록된다.") {
-            val sut = RegisteredUserConfirmCommandHandler(fakeUserRepository())
+            val sut = RegisteredUserConfirmCommandHandler(setUpUserAndUserRepository())
             val command = RegisteredUserConfirmCommand(
                 token = "example-token",
                 email = "kitty@gmail.com"
@@ -57,3 +58,16 @@ class RegisteredUserConfirmCommandHandlerSpec: DescribeSpec({
         }
     }
 })
+
+private fun setUpUserAndUserRepository(): FakeUserRepository {
+    val userRepository = FakeUserRepository()
+    userRepository.save(
+        User.create(
+            username = "rebwon",
+            email = "kitty@gmail.com",
+            password = "123456778!",
+            token = "example-token"
+        )
+    )
+    return userRepository
+}

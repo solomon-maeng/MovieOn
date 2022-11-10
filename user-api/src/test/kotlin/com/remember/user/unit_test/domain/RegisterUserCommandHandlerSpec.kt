@@ -4,6 +4,7 @@ import com.remember.shared.Role
 import com.remember.shared.contracts.RegisterUserCommand
 import com.remember.shared.error.BaseException
 import com.remember.user.domain.RegisterUserCommandHandler
+import com.remember.user.domain.User
 import io.kotest.assertions.assertSoftly
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.DescribeSpec
@@ -36,7 +37,7 @@ class RegisterUserCommandHandlerSpec : DescribeSpec({
                     "유저명이 중복입니다."
                 ),
             ) { (command, actual) ->
-                val sut = RegisterUserCommandHandler(fakeUserRepository(), FakePasswordEncrypter())
+                val sut = RegisterUserCommandHandler(setUpUserAndUserRepository(), FakePasswordEncrypter())
 
                 val result = shouldThrow<BaseException> { sut.handle(command) }
 
@@ -45,7 +46,7 @@ class RegisterUserCommandHandlerSpec : DescribeSpec({
         }
 
         it("RegisterUserCommand 처리 시, 올바른 입력이 주어지면, 유저가 반환된다.") {
-            val sut = RegisterUserCommandHandler(fakeUserRepository(), FakePasswordEncrypter())
+            val sut = RegisterUserCommandHandler(setUpUserAndUserRepository(), FakePasswordEncrypter())
             val command = RegisterUserCommand(
                 username = "jiwonKim",
                 email = "jiwonKim@gmail.com",
@@ -65,3 +66,16 @@ class RegisterUserCommandHandlerSpec : DescribeSpec({
         }
     }
 })
+
+private fun setUpUserAndUserRepository(): FakeUserRepository {
+    val userRepository = FakeUserRepository()
+    userRepository.save(
+        User.create(
+            username = "rebwon",
+            email = "kitty@gmail.com",
+            password = "123456778!",
+            token = "example-token"
+        )
+    )
+    return userRepository
+}

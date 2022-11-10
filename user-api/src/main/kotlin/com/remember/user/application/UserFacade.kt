@@ -26,17 +26,20 @@ class UserFacade(
     fun execute(command: Command): Any {
         return when (command) {
             is RegisterUserCommand -> {
-                val user = transactionTemplate.execute { registerHandler.handle(command) }
-                user!!.pollAllEvents().forEach { event -> messageBus.publish(event) }
+                val user = transactionTemplate.execute { registerHandler.handle(command) }!!
+                user.pollAllEvents().forEach { event -> messageBus.publish(event) }
                 return UserDto(user.userId, user.username, user.email, user.verified, user.createdAt, user.updatedAt)
             }
 
             is RegisteredUserConfirmCommand -> {
-                val user = transactionTemplate.execute { confirmHandler.handle(command) }
-                user!!.pollAllEvents().forEach { event -> messageBus.publish(event) }
+                val user = transactionTemplate.execute { confirmHandler.handle(command) }!!
+                user.pollAllEvents().forEach { event -> messageBus.publish(event) }
             }
 
-            is LoginUserCommand -> transactionTemplate.execute { loginHandler.handle(command) }!!
+            is LoginUserCommand -> {
+                val token =  transactionTemplate.execute { loginHandler.handle(command) }!!
+                return TokenDto(token.accessToken, token.refreshToken)
+            }
             is ReIssuanceTokenCommand -> tokenHandler.handle(command)
         }
     }

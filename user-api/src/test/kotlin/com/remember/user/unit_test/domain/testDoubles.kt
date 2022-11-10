@@ -1,6 +1,9 @@
 package com.remember.user.unit_test.domain
 
+import com.remember.shared.Role
 import com.remember.user.domain.PasswordEncrypter
+import com.remember.user.domain.Token
+import com.remember.user.domain.TokenGenerator
 import com.remember.user.domain.User
 import com.remember.user.domain.UserRepository
 
@@ -37,4 +40,10 @@ class FakePasswordEncrypter : PasswordEncrypter {
         return rawPassword == encodedPassword
     }
 
+}
+
+class DummyTokenGenerator : TokenGenerator {
+    override fun generate(email: String, roles: Set<Role>): Token {
+        TODO("Not yet implemented")
+    }
 }
