@@ -2,12 +2,16 @@ package com.remember.user.infrastructure.jwt
 
 import com.remember.shared.domain.model.BaseEntity
 import com.remember.user.domain.InvariantViolation
+import org.hibernate.annotations.SQLDelete
+import org.hibernate.annotations.Where
 import javax.persistence.Column
 import javax.persistence.Entity
 import javax.persistence.Table
 
 @Entity
 @Table(name = "REFRESH_TOKENS")
+@SQLDelete(sql = "UPDATE refresh_tokens SET deleted_at = now() WHERE id = ?")
+@Where(clause = "deleted_at is null")
 class RefreshToken(
     @Column(unique = true, nullable = false)
     val jti: String,
