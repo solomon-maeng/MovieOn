@@ -18,7 +18,9 @@ class POST_RegisterUserSpec(
 
     init {
         beforeSpec {
-            userRepository.save(User.create("rebwon", "rebwon@gmail.com", "12345678!", "example-token"))
+            transaction.executeWithoutResult {
+                userRepository.save(User.create("rebwon", "rebwon@gmail.com", "12345678!", "example-token"))
+            }
         }
 
         afterSpec {

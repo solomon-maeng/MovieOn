@@ -21,7 +21,6 @@ import java.util.EnumSet
 class POST_ReIssuanceTokenSpec(
     private val generator: TokenGenerator,
     private val parser: DefaultTokenParser,
-    private val transactionTemplate: TransactionTemplate,
     private val userRepository: JpaUserRepository,
     private val refreshTokenRepository: RefreshTokenRepository,
 ) : AbstractApiSpec() {
@@ -34,7 +33,7 @@ class POST_ReIssuanceTokenSpec(
     init {
 
         beforeSpec {
-            transactionTemplate.executeWithoutResult {
+            transaction.executeWithoutResult {
                 userRepository.save(User.create("rebwon", "rebwon@gmail.com", "123455677!!", "example-token"))
                 val userNotFoundRefreshToken = generator.generate("kitty@gmail.com", EnumSet.of(Role.USER))
                 val expiredRefreshToken = generator.generate("kitty@gmail.com", EnumSet.of(Role.USER))

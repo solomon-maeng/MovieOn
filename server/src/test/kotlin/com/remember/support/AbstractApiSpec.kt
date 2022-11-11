@@ -6,6 +6,7 @@ import io.kotest.core.spec.style.DescribeSpec
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.web.client.TestRestTemplate
 import org.springframework.boot.test.web.server.LocalServerPort
+import org.springframework.transaction.support.TransactionTemplate
 
 @ApiSpec
 abstract class AbstractApiSpec: DescribeSpec() {
@@ -16,9 +17,7 @@ abstract class AbstractApiSpec: DescribeSpec() {
     @MockkBean(relaxed = true)
     protected lateinit var messageBus: MessageBus
 
-    @Autowired
-    protected lateinit var client: TestRestTemplate
-
-    @Autowired
-    protected lateinit var cleaner: DatabaseCleaner
+    @Autowired protected lateinit var client: TestRestTemplate
+    @Autowired protected lateinit var cleaner: DatabaseCleaner
+    @Autowired protected lateinit var transaction: TransactionTemplate
 }

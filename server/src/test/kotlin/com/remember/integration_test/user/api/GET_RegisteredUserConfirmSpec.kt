@@ -19,7 +19,9 @@ class GET_RegisteredUserConfirmSpec(
     init {
 
         beforeSpec {
-            userRepository.save(User.create("rebwon", "rebwon@gmail.com", "1234", "example-token"))
+            transaction.executeWithoutResult {
+                userRepository.save(User.create("rebwon", "rebwon@gmail.com", "1234", "example-token"))
+            }
         }
 
         afterSpec {

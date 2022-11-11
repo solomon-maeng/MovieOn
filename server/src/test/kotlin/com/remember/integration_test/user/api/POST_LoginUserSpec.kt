@@ -16,10 +16,12 @@ class POST_LoginUserSpec(
 
     init {
         beforeSpec {
-            val user1 = User.create("jeremy", "jeremy@gmail.com", "\$2a\$10\$f4UTUsk5eNvg59mlvvlNZ.TEaawEwO9KwzUrAEIXL4YiJSGuoklbW", "example-token")
-            user1.registerConfirm("example-token")
-            val user2 = User.create("rebwon", "rebwon@gmail.com", "12345678!", "example-token")
-            userRepository.saveAll(mutableListOf(user1, user2))
+            transaction.executeWithoutResult {
+                val user1 = User.create("jeremy", "jeremy@gmail.com", "\$2a\$10\$f4UTUsk5eNvg59mlvvlNZ.TEaawEwO9KwzUrAEIXL4YiJSGuoklbW", "example-token")
+                user1.registerConfirm("example-token")
+                val user2 = User.create("rebwon", "rebwon@gmail.com", "12345678!", "example-token")
+                userRepository.saveAll(mutableListOf(user1, user2))
+            }
         }
 
         afterSpec {
