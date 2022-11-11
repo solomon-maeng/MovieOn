@@ -37,10 +37,14 @@ class UserFacade(
             }
 
             is LoginUserCommand -> {
-                val token =  transactionTemplate.execute { loginHandler.handle(command) }!!
+                val token = transactionTemplate.execute { loginHandler.handle(command) }!!
                 return TokenDto(token.accessToken, token.refreshToken)
             }
-            is ReIssuanceTokenCommand -> tokenHandler.handle(command)
+
+            is ReIssuanceTokenCommand -> {
+                val token = transactionTemplate.execute { tokenHandler.handle(command) }!!
+                return TokenDto(token.accessToken, token.refreshToken)
+            }
         }
     }
 }

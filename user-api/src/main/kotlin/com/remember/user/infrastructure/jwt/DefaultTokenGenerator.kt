@@ -5,14 +5,11 @@ import com.remember.user.domain.Token
 import com.remember.user.domain.TokenGenerator
 import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.SignatureAlgorithm
-import io.jsonwebtoken.security.Keys
-import java.nio.charset.StandardCharsets
 import java.time.Instant
 import java.time.LocalDateTime
 import java.time.ZoneId
 import java.util.Date
 import java.util.UUID
-import javax.crypto.SecretKey
 
 class DefaultTokenGenerator(
     private val refreshTokenRepository: RefreshTokenRepository,
@@ -27,7 +24,7 @@ class DefaultTokenGenerator(
         val currentTime = LocalDateTime.now()
         val randomJti = UUID.randomUUID().toString()
         refreshTokenRepository.save(RefreshToken(randomJti))
-        val key = generateKey()
+        val key = SecretKeyGenerator.generate(tokenProperties.base64TokenSigningKey)
 
         return Jwts.builder()
             .setClaims(claims)
@@ -42,7 +39,7 @@ class DefaultTokenGenerator(
     private fun generateAccessToken(email: String, roles: Set<Role>): String {
         val claims = generateClaims(email, authorities(roles))
         val currentTime = LocalDateTime.now()
-        val key = generateKey()
+        val key = SecretKeyGenerator.generate(tokenProperties.base64TokenSigningKey)
 
         return Jwts.builder().setClaims(claims)
             .setIssuedAt(Date.from(toInstant(currentTime)))
@@ -57,9 +54,6 @@ class DefaultTokenGenerator(
         claims["scopes"] = scopes
         return claims
     }
-
-    private fun generateKey(): SecretKey? =
-        Keys.hmacShaKeyFor(tokenProperties.base64TokenSigningKey.toByteArray(StandardCharsets.UTF_8))
 
     private fun toInstant(currentTime: LocalDateTime): Instant? =
         currentTime.atZone(ZoneId.systemDefault()).toInstant()

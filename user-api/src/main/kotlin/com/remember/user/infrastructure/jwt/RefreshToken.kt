@@ -1,7 +1,6 @@
 package com.remember.user.infrastructure.jwt
 
 import com.remember.shared.domain.model.BaseEntity
-import com.remember.user.domain.InvariantViolation
 import org.hibernate.annotations.SQLDelete
 import org.hibernate.annotations.Where
 import javax.persistence.Column
@@ -20,7 +19,7 @@ class RefreshToken(
 ): BaseEntity(id) {
 
     fun expire() {
-        if (expired) throw InvariantViolation("이미 만료된 토큰입니다.")
+        if (expired) throw AlreadyExpiredToken()
         this.expired = true
     }
 }
