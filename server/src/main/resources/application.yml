@@ -3,6 +3,8 @@ spring:
     name: movie-on
   lifecycle:
     timeout-per-shutdown-phase: 20s
+  config:
+    import: classpath:user-module.yml
 
 server:
   error:

@@ -1,53 +1,25 @@
 package com.remember.user.infrastructure
 
 import com.remember.user.domain.LoginUserCommandHandler
-import com.remember.user.domain.PasswordEncrypter
 import com.remember.user.domain.ReIssuanceTokenCommandHandler
 import com.remember.user.domain.RegisterUserCommandHandler
 import com.remember.user.domain.RegisteredUserConfirmCommandHandler
-import com.remember.user.domain.TokenGenerator
-import com.remember.user.domain.UserRepository
 import com.remember.user.infrastructure.jpa.UserRepositoryAdapter
 import com.remember.user.infrastructure.jwt.DefaultTokenGenerator
-import org.springframework.context.annotation.Bean
+import com.remember.user.infrastructure.jwt.TokenProperties
+import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.Import
 
-@Import(PasswordEncrypterAdapter::class, UserRepositoryAdapter::class)
+@Import(
+    value = [
+        PasswordEncrypterAdapter::class, UserRepositoryAdapter::class,
+        RegisterUserCommandHandler::class, RegisteredUserConfirmCommandHandler::class,
+        LoginUserCommandHandler::class, DefaultTokenGenerator::class,
+        ReIssuanceTokenCommandHandler::class
+    ]
+)
 @Configuration
+@EnableConfigurationProperties(TokenProperties::class)
 class MemberModuleConfiguration {
-
-    @Bean
-    fun registerUserCommandHandler(
-        userRepository: UserRepository,
-        passwordEncrypter: PasswordEncrypter
-    ): RegisterUserCommandHandler {
-        return RegisterUserCommandHandler(userRepository, passwordEncrypter)
-    }
-
-    @Bean
-    fun registerUserConfirmCommandHandler(
-        userRepository: UserRepository
-    ): RegisteredUserConfirmCommandHandler {
-        return RegisteredUserConfirmCommandHandler(userRepository)
-    }
-
-    @Bean
-    fun loginUserCommandHandler(
-        userRepository: UserRepository,
-        passwordEncrypter: PasswordEncrypter,
-        tokenGenerator: TokenGenerator
-    ): LoginUserCommandHandler {
-        return LoginUserCommandHandler(userRepository, passwordEncrypter, tokenGenerator)
-    }
-
-    @Bean
-    fun defaultTokenGenerator(): TokenGenerator {
-        return DefaultTokenGenerator()
-    }
-
-    @Bean
-    fun reIssuanceTokenCommandHandler(): ReIssuanceTokenCommandHandler {
-        return ReIssuanceTokenCommandHandler()
-    }
 }

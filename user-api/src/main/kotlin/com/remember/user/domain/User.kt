@@ -45,10 +45,7 @@ class User private constructor(
     fun registerConfirm(token: String) {
         when (confirmInformation.token) {
             token -> {
-                confirmInformation = ConfirmInformation(
-                    token = confirmInformation.token,
-                    verified = true
-                )
+                confirmInformation = confirmInformation.copy(verified = true)
                 registerEvent(RegisterCompletedEvent(userId = userKey, email = email))
             }
 

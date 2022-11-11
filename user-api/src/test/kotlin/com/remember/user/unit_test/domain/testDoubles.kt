@@ -17,15 +17,15 @@ class FakeUserRepository : UserRepository {
     }
 
     override fun existsByEmail(email: String): Boolean {
-        return data.values.any { user -> user.email == email }
+        return data.values.any { it.email == email }
     }
 
     override fun existsByUsername(username: String): Boolean {
-        return data.values.any { user -> user.username == username }
+        return data.values.any { it.username == username }
     }
 
     override fun findByEmail(email: String): User? {
-        return data.values.find { user -> user.email == email }
+        return data.values.firstOrNull { it.email == email }
     }
 
 }

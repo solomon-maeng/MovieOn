@@ -57,7 +57,7 @@ class POST_LoginUserSpec(
                 response.statusCode shouldBe HttpStatus.BAD_REQUEST
             }
 
-            xit("로그인 요청이 정상적으로 처리되고 access, refresh 토큰이 반환된다.") {
+            it("로그인 요청이 정상적으로 처리되고 access, refresh 토큰이 반환된다.") {
                 val request = LoginUserRequest("jeremy@gmail.com", "12345678!")
 
                 val response = client.postForEntity(uri, request, TokenResponse::class.java)
