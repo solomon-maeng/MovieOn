@@ -1,7 +1,6 @@
 package com.remember.integration_test.user.api
 
 import com.remember.support.AbstractApiSpec
-import com.remember.support.DatabaseCleaner
 import com.remember.user.domain.User
 import com.remember.user.infrastructure.jpa.JpaUserRepository
 import com.remember.user.interfaces.RegisterUserRequest
@@ -11,12 +10,9 @@ import io.kotest.datatest.withData
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
 import io.mockk.every
-import org.springframework.boot.test.web.client.TestRestTemplate
 import org.springframework.http.HttpStatus
 
 class POST_RegisterUserSpec(
-    private val client: TestRestTemplate,
-    private val cleaner: DatabaseCleaner,
     private val userRepository: JpaUserRepository,
 ) : AbstractApiSpec() {
 

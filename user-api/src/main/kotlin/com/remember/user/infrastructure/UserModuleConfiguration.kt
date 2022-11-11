@@ -24,5 +24,5 @@ import org.springframework.context.annotation.Import
 )
 @Configuration
 @EnableConfigurationProperties(TokenProperties::class)
-class MemberModuleConfiguration {
+class UserModuleConfiguration {
 }

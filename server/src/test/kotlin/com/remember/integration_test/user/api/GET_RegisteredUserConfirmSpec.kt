@@ -1,23 +1,19 @@
 package com.remember.integration_test.user.api
 
 import com.remember.support.AbstractApiSpec
-import com.remember.support.DatabaseCleaner
 import com.remember.user.domain.User
 import com.remember.user.infrastructure.jpa.JpaUserRepository
 import com.remember.user.interfaces.RegisterConfirmRequest
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.matchers.shouldBe
 import io.mockk.every
-import org.springframework.boot.test.web.client.TestRestTemplate
 import org.springframework.http.HttpStatus
 import org.springframework.web.client.ResourceAccessException
 import org.springframework.web.util.UriComponentsBuilder
 import java.net.URI
 
 class GET_RegisteredUserConfirmSpec(
-    private val client: TestRestTemplate,
     private val userRepository: JpaUserRepository,
-    private val cleaner: DatabaseCleaner
 ) : AbstractApiSpec() {
 
     init {

@@ -1,7 +1,6 @@
 package com.remember.integration_test.user.api
 
 import com.remember.support.AbstractApiSpec
-import com.remember.support.DatabaseCleaner
 import com.remember.user.domain.User
 import com.remember.user.infrastructure.jpa.JpaUserRepository
 import com.remember.user.interfaces.LoginUserRequest
@@ -9,12 +8,9 @@ import com.remember.user.interfaces.TokenResponse
 import io.kotest.assertions.assertSoftly
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
-import org.springframework.boot.test.web.client.TestRestTemplate
 import org.springframework.http.HttpStatus
 
 class POST_LoginUserSpec(
-    private val client: TestRestTemplate,
-    private val cleaner: DatabaseCleaner,
     private val userRepository: JpaUserRepository,
 ) : AbstractApiSpec() {
 

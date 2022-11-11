@@ -77,6 +77,7 @@ class DefaultTokenReIssuerSpec : StringSpec({
         val expiredRefreshToken = setUpAlreadyExpiredRefreshToken()
         every { refreshTokenRepository.save(any()) } returns mockk()
         every { refreshTokenRepository.findByJti(any()) } returns expiredRefreshToken
+
         val generator = DefaultTokenGenerator(refreshTokenRepository, tokenProperties())
         val token = getToken(generator).refreshToken
         val sut = DefaultTokenReIssuer(
@@ -96,6 +97,7 @@ class DefaultTokenReIssuerSpec : StringSpec({
         every { refreshTokenRepository.save(any()) } returns mockk()
         every { refreshTokenRepository.findByJti(any()) } returns RefreshToken(UUID.randomUUID().toString())
         every { userRepository.findByEmail(any()) } returns null
+
         val generator = DefaultTokenGenerator(refreshTokenRepository, tokenProperties())
         val token = getToken(generator).refreshToken
         val sut = DefaultTokenReIssuer(

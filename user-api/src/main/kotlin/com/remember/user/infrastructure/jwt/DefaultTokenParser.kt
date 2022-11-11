@@ -24,8 +24,8 @@ class DefaultTokenParser(
             )
         } catch (ex: Exception) {
             when(ex) {
-                is UnsupportedJwtException -> throw InvalidToken("지원하지 않는 JWT 토큰입니다")
-                is MalformedJwtException -> throw InvalidToken("잘못된 JWT 토큰입니다")
+                is UnsupportedJwtException -> throw InvalidToken("지원하지 않는 JWT 토큰입니다.")
+                is MalformedJwtException -> throw InvalidToken("잘못된 JWT 토큰입니다.")
                 is IllegalArgumentException -> throw InvalidToken("입력된 토큰이 잘못되었습니다.")
                 is ExpiredJwtException -> throw AlreadyExpiredToken()
                 else -> throw RuntimeException("알 수 없는 에러입니다.")
