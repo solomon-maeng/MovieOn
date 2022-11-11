@@ -1,7 +1,13 @@
 rootProject.name = "MovieOn"
 include("server")
 include("shared")
-include("user-api")
+include(
+    "user-api",
+    "user-api:user-interfaces",
+    "user-api:user-application",
+    "user-api:user-domain",
+    "user-api:user-infrastructure",
+)
 include("notification-api")
 include("order-api")
 include("product-api")

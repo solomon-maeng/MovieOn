@@ -14,7 +14,10 @@ dependencies {
     implementation(project(":product-api"))
     implementation(project(":order-api"))
     implementation(project(":notification-api"))
-    implementation(project(":user-api"))
+    implementation(project(":user-api:user-interfaces"))
+    implementation(project(":user-api:user-application"))
+    implementation(project(":user-api:user-domain"))
+    implementation(project(":user-api:user-infrastructure"))
 
     implementation("org.springframework.boot:spring-boot-starter-actuator")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
