@@ -29,6 +29,7 @@ abstract class IntegrationSpecHelper: DescribeSpec() {
     @Autowired protected lateinit var transaction: TransactionTemplate
 
     companion object {
+        // TODO 아래 구성들을 LocalStack 포함하여 DockerComposeContainer 사용하도록 변경
         val redisContainer = GenericContainer<Nothing>("redis:3-alpine")
             .apply {
                 withExposedPorts(6379)

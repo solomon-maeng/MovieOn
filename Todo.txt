@@ -3,3 +3,4 @@
 - 테스트 환경에서 TestContainters 사용 시 docker-compose로
 mysql, redis, aws resource 들을 전부 한 번에 올릴 수 있도록 추가 구성해야 함.
 - Spring Batch, Quartz에 대해 학습하고 Sidekiq이랑 비교 분석해야 함.
+- Kotlin-Faker 사용 사례 정리해야 함.

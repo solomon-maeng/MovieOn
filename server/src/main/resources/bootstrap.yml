@@ -1,5 +1,5 @@
 aws:
-  secretsmanager:
+  secrets-manager:
     name: movieon-api
 
 cloud:

@@ -40,6 +40,7 @@ dependencies {
 
     runtimeOnly("mysql:mysql-connector-java")
 
+    testImplementation("com.navercorp.fixturemonkey:fixture-monkey-starter:0.4.1")
     testImplementation("org.testcontainers:mysql:1.17.4")
     testImplementation("org.testcontainers:testcontainers:1.17.4")
     testImplementation("com.ninja-squad:springmockk:3.1.1")
