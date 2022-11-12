@@ -1,6 +1,6 @@
 package com.remember.integration_test.user.api
 
-import com.remember.support.AbstractApiSpec
+import com.remember.support.IntegrationSpecHelper
 import com.remember.user.domain.User
 import com.remember.user.infrastructure.jpa.JpaUserRepository
 import com.remember.user.interfaces.LoginUserRequest
@@ -12,7 +12,7 @@ import org.springframework.http.HttpStatus
 
 class POST_LoginUserSpec(
     private val userRepository: JpaUserRepository,
-) : AbstractApiSpec() {
+) : IntegrationSpecHelper() {
 
     init {
         beforeSpec {

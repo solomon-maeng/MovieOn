@@ -1,7 +1,7 @@
 package com.remember.integration_test.user.api
 
 import com.remember.shared.Role
-import com.remember.support.AbstractApiSpec
+import com.remember.support.IntegrationSpecHelper
 import com.remember.user.domain.TokenGenerator
 import com.remember.user.domain.User
 import com.remember.user.infrastructure.jpa.JpaUserRepository
@@ -15,7 +15,6 @@ import io.kotest.matchers.shouldNotBe
 import org.springframework.http.HttpEntity
 import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpStatus
-import org.springframework.transaction.support.TransactionTemplate
 import java.util.EnumSet
 
 class POST_ReIssuanceTokenSpec(
@@ -23,7 +22,7 @@ class POST_ReIssuanceTokenSpec(
     private val parser: DefaultTokenParser,
     private val userRepository: JpaUserRepository,
     private val refreshTokenRepository: RefreshTokenRepository,
-) : AbstractApiSpec() {
+) : IntegrationSpecHelper() {
 
     private lateinit var accessToken: String
     private lateinit var refreshToken: String

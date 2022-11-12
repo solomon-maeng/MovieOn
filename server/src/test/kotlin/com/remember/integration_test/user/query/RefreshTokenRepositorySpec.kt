@@ -1,7 +1,6 @@
 package com.remember.integration_test.user.query
 
-import com.remember.support.AbstractRepositorySpec
-import com.remember.support.DatabaseCleaner
+import com.remember.support.IntegrationSpecHelper
 import com.remember.user.infrastructure.jwt.RefreshToken
 import com.remember.user.infrastructure.jwt.RefreshTokenRepository
 import io.kotest.matchers.shouldBe
@@ -9,14 +8,15 @@ import java.util.UUID
 
 class RefreshTokenRepositorySpec(
     private val refreshTokenRepository: RefreshTokenRepository,
-    private val cleaner: DatabaseCleaner,
-) : AbstractRepositorySpec() {
+) : IntegrationSpecHelper() {
 
     init {
         lateinit var expected: RefreshToken
 
         beforeEach {
-            expected = refreshTokenRepository.save(RefreshToken(UUID.randomUUID().toString()))
+            expected = transaction.execute {
+                refreshTokenRepository.save(RefreshToken(UUID.randomUUID().toString()))
+            }!!
         }
 
         afterEach {

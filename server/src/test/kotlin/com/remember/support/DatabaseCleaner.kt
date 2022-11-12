@@ -11,10 +11,10 @@ class DatabaseCleaner(
 ) {
 
     fun clean() {
-        jdbcTemplate.execute("SET REFERENTIAL_INTEGRITY FALSE")
+        jdbcTemplate.execute("SET FOREIGN_KEY_CHECKS = 0")
         jdbcTemplate.execute("TRUNCATE TABLE users")
         jdbcTemplate.execute("TRUNCATE TABLE user_roles")
-        jdbcTemplate.execute("SET REFERENTIAL_INTEGRITY TRUE")
+        jdbcTemplate.execute("SET FOREIGN_KEY_CHECKS = 1")
     }
 
 }
