@@ -1,7 +1,6 @@
 package com.remember.integration_test.user.query
 
-import com.remember.support.AbstractRepositorySpec
-import com.remember.support.DatabaseCleaner
+import com.remember.support.IntegrationSpecHelper
 import com.remember.user.domain.User
 import com.remember.user.infrastructure.jpa.JpaUserRepository
 import io.kotest.matchers.booleans.shouldBeFalse
@@ -10,14 +9,15 @@ import io.kotest.matchers.shouldBe
 
 class UserRepositorySpec(
     private val userRepository: JpaUserRepository,
-    private val cleaner: DatabaseCleaner
-) : AbstractRepositorySpec() {
+) : IntegrationSpecHelper() {
 
     init {
         lateinit var expected: User
 
         beforeEach {
-            expected = userRepository.save(User.create("rebwon", "rebwon@gmail.com", "pass", "example"))
+            expected = transaction.execute {
+                userRepository.save(User.create("rebwon", "rebwon@gmail.com", "pass", "example"))
+            }!!
         }
 
         afterEach {

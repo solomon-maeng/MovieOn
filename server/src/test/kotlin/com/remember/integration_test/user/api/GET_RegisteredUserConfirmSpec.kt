@@ -1,6 +1,6 @@
 package com.remember.integration_test.user.api
 
-import com.remember.support.AbstractApiSpec
+import com.remember.support.IntegrationSpecHelper
 import com.remember.user.domain.User
 import com.remember.user.infrastructure.jpa.JpaUserRepository
 import com.remember.user.interfaces.RegisterConfirmRequest
@@ -14,7 +14,7 @@ import java.net.URI
 
 class GET_RegisteredUserConfirmSpec(
     private val userRepository: JpaUserRepository,
-) : AbstractApiSpec() {
+) : IntegrationSpecHelper() {
 
     init {
 

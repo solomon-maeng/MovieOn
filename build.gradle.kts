@@ -43,7 +43,10 @@ subprojects {
         implementation("org.slf4j:slf4j-api:1.7.32")
 
         testImplementation("com.navercorp.fixturemonkey:fixture-monkey-starter:0.4.1")
-        testImplementation("org.springframework.boot:spring-boot-starter-test")
+        testImplementation("org.springframework.boot:spring-boot-starter-test") {
+            exclude(module = "mockito-core")
+            exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
+        }
         testImplementation("io.mockk:mockk:1.13.2")
         testImplementation("io.kotest:kotest-runner-junit5:5.5.1")
         testImplementation("io.kotest:kotest-framework-datatest:5.5.1")
