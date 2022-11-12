@@ -26,6 +26,10 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-security")
 
+    implementation("org.springframework.cloud:spring-cloud-starter-bootstrap")
+    implementation("org.springframework.cloud:spring-cloud-starter-aws-messaging:2.2.6.RELEASE")
+    implementation("org.springframework.cloud:spring-cloud-starter-aws-secrets-manager-config:2.2.6.RELEASE")
+
     implementation("org.springdoc:springdoc-openapi-ui:1.6.12")
     implementation("org.springdoc:springdoc-openapi-security:1.6.12")
 
@@ -35,11 +39,10 @@ dependencies {
     runtimeOnly("io.micrometer:micrometer-registry-prometheus")
 
     runtimeOnly("mysql:mysql-connector-java")
-    testRuntimeOnly("com.h2database:h2")
 
-    testImplementation("com.ninja-squad:springmockk:3.1.1")
-    testImplementation("io.kotest.extensions:kotest-extensions-spring:1.1.2")
     testImplementation("org.testcontainers:mysql:1.17.4")
     testImplementation("org.testcontainers:testcontainers:1.17.4")
+    testImplementation("com.ninja-squad:springmockk:3.1.1")
+    testImplementation("io.kotest.extensions:kotest-extensions-spring:1.1.2")
     testImplementation("io.kotest.extensions:kotest-extensions-testcontainers:1.3.4")
 }

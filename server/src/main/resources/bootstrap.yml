@@ -1,0 +1,10 @@
+aws:
+  secretsmanager:
+    name: movieon-api
+
+cloud:
+  aws:
+    region:
+      static: ap-northeast-1
+    stack:
+      auto: false

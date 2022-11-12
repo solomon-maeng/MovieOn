@@ -4,11 +4,9 @@ import com.remember.support.IntegrationSpecHelper
 import com.remember.user.domain.User
 import com.remember.user.infrastructure.jpa.JpaUserRepository
 import com.remember.user.interfaces.RegisterConfirmRequest
-import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.matchers.shouldBe
 import io.mockk.every
 import org.springframework.http.HttpStatus
-import org.springframework.web.client.ResourceAccessException
 import org.springframework.web.util.UriComponentsBuilder
 import java.net.URI
 
@@ -40,10 +38,10 @@ class GET_RegisteredUserConfirmSpec(
                         .encode()
                         .toUriString()
 
-                    shouldThrow<ResourceAccessException> {
-                        client.getForEntity(requestUri, Any::class.java)
-                        every { messageBus.publish(any()) }
-                    }
+                    val response = client.getForEntity(requestUri, Any::class.java)
+                    every { messageBus.publish(any()) }
+
+                    response.statusCode shouldBe HttpStatus.SEE_OTHER
                 }
             }
 
