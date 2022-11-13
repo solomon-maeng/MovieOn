@@ -28,21 +28,6 @@ abstract class IntegrationSpecHelper: DescribeSpec() {
     @Autowired protected lateinit var cleaner: DatabaseCleaner
     @Autowired protected lateinit var transaction: TransactionTemplate
 
-    companion object {
-        // TODO 아래 구성들을 LocalStack 포함하여 DockerComposeContainer 사용하도록 변경
-        val redisContainer = GenericContainer<Nothing>("redis:3-alpine")
-            .apply {
-                withExposedPorts(6379)
-            }
-        val mysqlContainer = MySQLContainer<Nothing>("mysql:8.0.30")
-            .apply {
-                withDatabaseName("movieon")
-                withUsername("joyful")
-                withPassword("helloworld!")
-                withUrlParam("serverTimeZone", "UTC")
-            }
-    }
-
     internal class InfrastructureInitializer : ApplicationContextInitializer<ConfigurableApplicationContext> {
         override fun initialize(applicationContext: ConfigurableApplicationContext) {
             redisContainer.start()
@@ -57,5 +42,20 @@ abstract class IntegrationSpecHelper: DescribeSpec() {
                 "spring.datasource.driver-class-name=${mysqlContainer.driverClassName}",
             ).applyTo(applicationContext.environment)
         }
+    }
+
+    companion object {
+        // TODO 아래 구성들을 LocalStack 포함하여 DockerComposeContainer 사용하도록 변경
+        val redisContainer = GenericContainer<Nothing>("redis:3-alpine")
+            .apply {
+                withExposedPorts(6379)
+            }
+        val mysqlContainer = MySQLContainer<Nothing>("mysql:8.0.30")
+            .apply {
+                withDatabaseName("movieon")
+                withUsername("joyful")
+                withPassword("helloworld!")
+                withUrlParam("serverTimeZone", "UTC")
+            }
     }
 }
