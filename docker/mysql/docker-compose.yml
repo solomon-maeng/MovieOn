@@ -1,6 +1,13 @@
 version: "3.9"
 services:
+  cache:
+    container_name: "cache-redis"
+    command: redis-server
+    image: redis:alpine
+    ports:
+      - "6379:6379"
   db:
+    container_name: "db-mysql"
     platform: linux/amd64
     image: mysql:8.0.30
     environment:

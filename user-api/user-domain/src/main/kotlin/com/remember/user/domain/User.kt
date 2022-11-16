@@ -25,7 +25,7 @@ class User private constructor(
     @ElementCollection(fetch = FetchType.EAGER)
     @Enumerated(EnumType.STRING)
     @CollectionTable(name = "user_roles")
-    @Column(name = "roles")
+    @Column(name = "role_name")
     private val _roles: MutableSet<Role> = mutableSetOf(Role.USER),
 
     id: Long = 0L
