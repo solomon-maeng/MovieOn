@@ -43,6 +43,7 @@ dependencies {
     testImplementation("com.navercorp.fixturemonkey:fixture-monkey-starter:0.4.1")
     testImplementation("org.testcontainers:mysql:1.17.4")
     testImplementation("org.testcontainers:testcontainers:1.17.4")
+    testImplementation("org.testcontainers:localstack:1.17.4")
     testImplementation("com.ninja-squad:springmockk:3.1.1")
     testImplementation("io.kotest.extensions:kotest-extensions-spring:1.1.2")
     testImplementation("io.kotest.extensions:kotest-extensions-testcontainers:1.3.4")
