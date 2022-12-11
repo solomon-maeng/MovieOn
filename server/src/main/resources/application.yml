@@ -5,6 +5,15 @@ spring:
     timeout-per-shutdown-phase: 20s
   config:
     import: classpath:user-module.yml
+  jpa:
+    open-in-view: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+  profiles:
+    group:
+      local: shared,local
+      test: shared,test
 
 server:
   error:
@@ -32,3 +41,87 @@ management:
       enabled: true
     health:
       enabled: true
+
+---
+# Local Profile
+spring:
+  config:
+    activate:
+      on-profile: local
+  jpa:
+    hibernate:
+      ddl-auto: none
+  redis:
+    host: localhost
+    password:
+    port: 6379
+  flyway:
+    url: jdbc:mysql://localhost:3307/movieon?characterEncoding=UTF-8
+    user: joyful
+    password: 12345678!
+  datasource:
+    url: jdbc:mysql://localhost:3307/movieon?characterEncoding=UTF-8
+    username: joyful
+    password: 12345678!
+
+---
+# Test Profile
+spring:
+  config:
+    activate:
+      on-profile: test
+  jpa:
+    hibernate:
+      ddl-auto: update
+  flyway:
+    enabled: false
+
+---
+# Shared Profile (Using Test, Local)
+spring:
+  config:
+    activate:
+      on-profile: shared
+  jpa:
+    properties:
+      hibernate:
+        format_sql: true
+        session.events.log.LOG_QUERIES_SLOWER_THAN_MS: 25
+        generate_statistics: true
+    show-sql: true
+  datasource:
+    hikari:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      maximumPoolSize: 40
+      connectionTimeout: 10000
+      data-source-properties:
+        cachePrepStmts: true
+        prepStmtCacheSize: 500
+        prepStmtCacheSqlLimit: 2048
+        useServerPrepStmts: true
+        useLocalSessionState: true
+        rewriteBatchedStatements: true
+        cacheResultSetMetadata: true
+        cacheServerConfiguration: true
+        elideSetAutoCommits: true
+        maintainTimeStats: false
+
+logging:
+  level:
+    org.hibernate:
+      stat: debug
+      cache: debug
+      SQL_SLOW: info
+    org.hibernate.type.descriptor.sql.BasicBinder: trace
+    org.springframework.transaction: trace
+    org.springframework.orm: trace
+---
+# Production Profile
+spring:
+  config:
+    activate:
+      on-profile: prod
+
+logging:
+  level:
+    org.hibernate: ERROR
