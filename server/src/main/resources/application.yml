@@ -56,11 +56,11 @@ spring:
     password:
     port: 6379
   flyway:
-    url: jdbc:mysql://localhost:3307/movieon?characterEncoding=UTF-8
+    url: jdbc:mysql://localhost:3307/movieon?characterEncoding=UTF-8&useSSL=true
     user: joyful
     password: 12345678!
   datasource:
-    url: jdbc:mysql://localhost:3307/movieon?characterEncoding=UTF-8
+    url: jdbc:mysql://localhost:3307/movieon?characterEncoding=UTF-8&useSSL=true
     username: joyful
     password: 12345678!
 
@@ -108,6 +108,8 @@ spring:
 
 logging:
   level:
+    root: info
+    com.remember: debug
     org.hibernate:
       stat: debug
       cache: debug
