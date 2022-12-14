@@ -1,11 +1,13 @@
 package com.remember.support
 
 import io.swagger.v3.oas.models.Components
+import io.swagger.v3.oas.models.ExternalDocumentation
 import io.swagger.v3.oas.models.OpenAPI
 import io.swagger.v3.oas.models.info.Info
 import io.swagger.v3.oas.models.security.SecurityRequirement
 import io.swagger.v3.oas.models.security.SecurityScheme
 import io.swagger.v3.oas.models.servers.Server
+import org.springdoc.core.GroupedOpenApi
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -45,6 +47,19 @@ class SwaggerConfiguration {
             .info(info)
             .security(listOf(SecurityRequirement().addList("bearer-authentication")))
             .servers(servers)
+            .externalDocs(ExternalDocumentation()
+                .description("Remember APIs")
+                .url("http://doc.rememberapp.co.kr/")
+            )
+    }
+
+    @Bean
+    fun publicApi(): GroupedOpenApi {
+        return GroupedOpenApi.builder()
+            .group("movieon-api")
+            .packagesToScan("com.remember")
+            .pathsToMatch("/**")
+            .build()
     }
 
     private fun securityScheme(): SecurityScheme {
@@ -58,6 +73,6 @@ class SwaggerConfiguration {
         return Info()
             .title("MovieOn API 문서입니다. 실행 환경($profile)")
             .description("Kotlin, Spring에 익숙해지기 위한 온보딩 프로젝트입니다.")
-            .version("0.1")
+            .version("v0.0.1")
     }
 }

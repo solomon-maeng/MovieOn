@@ -1,3 +1,8 @@
+plugins {
+    id("org.springdoc.openapi-gradle-plugin") version "1.5.0"
+    id("org.hidetake.swagger.generator") version "2.19.2"
+}
+
 tasks.getByName("bootJar") {
     enabled = true
 }
@@ -31,7 +36,10 @@ dependencies {
     implementation("org.springframework.cloud:spring-cloud-starter-aws-secrets-manager-config:2.2.6.RELEASE")
 
     implementation("org.springdoc:springdoc-openapi-ui:1.6.12")
+    implementation("org.springdoc:springdoc-openapi-kotlin:1.6.12")
     implementation("org.springdoc:springdoc-openapi-security:1.6.12")
+    implementation("org.springdoc:springdoc-openapi-webmvc-core:1.6.12")
+    swaggerUI("org.webjars:swagger-ui:4.15.5")
 
     implementation("org.flywaydb:flyway-core")
     implementation("org.flywaydb:flyway-mysql")
@@ -47,4 +55,16 @@ dependencies {
     testImplementation("com.ninja-squad:springmockk:3.1.1")
     testImplementation("io.kotest.extensions:kotest-extensions-spring:1.1.2")
     testImplementation("io.kotest.extensions:kotest-extensions-testcontainers:1.3.4")
+}
+
+openApi {
+    apiDocsUrl.set("http://localhost:8081/v3/api-docs/movieon-api")
+    waitTimeInSeconds.set(45)
+    customBootRun {
+        jvmArgs.set(listOf("-Dspring.profiles.active=local", "-Dclient.package=remember"))
+    }
+}
+
+tasks.generateSwaggerUI {
+    inputFile = file("$buildDir/openapi.json")
 }

@@ -2,7 +2,6 @@ package com.remember.support
 
 import com.remember.App
 import com.remember.shared.getLogger
-import io.swagger.v3.oas.annotations.Hidden
 import org.springframework.boot.web.servlet.error.ErrorController
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -13,7 +12,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.RestControllerAdvice
 import java.net.BindException
 
-@Hidden
 @RestControllerAdvice(basePackageClasses = [App::class])
 class GlobalExceptionHandler : ErrorController {
 
