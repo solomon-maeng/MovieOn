@@ -3,9 +3,7 @@ package com.remember.shared.domain.model
 import org.hibernate.annotations.CreationTimestamp
 import org.hibernate.annotations.UpdateTimestamp
 import org.hibernate.envers.Audited
-import org.springframework.data.jpa.domain.support.AuditingEntityListener
 import java.time.LocalDateTime
-import javax.persistence.EntityListeners
 import javax.persistence.GeneratedValue
 import javax.persistence.GenerationType
 import javax.persistence.Id
@@ -13,7 +11,6 @@ import javax.persistence.MappedSuperclass
 import javax.persistence.Transient
 
 @MappedSuperclass
-@EntityListeners(AuditingEntityListener::class)
 abstract class AbstractAggregateRoot(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -61,7 +58,6 @@ abstract class AbstractAggregateRoot(
 }
 
 @MappedSuperclass
-@EntityListeners(AuditingEntityListener::class)
 abstract class BaseEntity(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
