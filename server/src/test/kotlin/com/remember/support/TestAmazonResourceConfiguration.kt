@@ -15,6 +15,8 @@ import org.testcontainers.utility.DockerImageName
 //@TestConfiguration
 class TestAmazonResourceConfiguration {
 
+    // TODO 추후 작성
+
     private val localStack = LocalStackContainer(DockerImageName.parse("localstack/localstack:latest"))
     private val credentials =
         AWSStaticCredentialsProvider(BasicAWSCredentials(localStack.accessKey, localStack.secretKey))
