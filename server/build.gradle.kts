@@ -1,3 +1,5 @@
+import org.hidetake.gradle.swagger.generator.GenerateSwaggerUI
+
 plugins {
     id("org.springdoc.openapi-gradle-plugin") version "1.5.0"
     id("org.hidetake.swagger.generator") version "2.19.2"
@@ -61,10 +63,11 @@ openApi {
     apiDocsUrl.set("http://localhost:8081/v3/api-docs/movieon-api")
     waitTimeInSeconds.set(45)
     customBootRun {
-        jvmArgs.set(listOf("-Dspring.profiles.active=local", "-Dclient.package=remember"))
+        jvmArgs.set(listOf("-Dspring.profiles.active=local"))
     }
 }
 
-tasks.generateSwaggerUI {
+tasks.withType<GenerateSwaggerUI> {
     inputFile = file("$buildDir/openapi.json")
+    outputDir = file("$buildDir/swagger-ui")
 }
